@@ -1,6 +1,6 @@
 # Work Log
 
-## GROUP MEMBER 1
+## IVAN CHEN
 
 ### date x
 
@@ -11,7 +11,7 @@ info
 info
 
 
-## GROUP MEMBER 2
+## EDMUND CHIN
 
 ### date x
 
@@ -20,3 +20,26 @@ info
 ### date y
 
 info
+
+
+## CLEMENS LI
+
+### date x
+
+info
+
+### date y
+
+info
+
+
+## TRACEY LIN
+
+### date x
+
+info
+
+### date y
+
+info
+
