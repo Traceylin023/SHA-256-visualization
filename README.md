@@ -11,6 +11,10 @@ Group Members:
 - Clemens Li
 - Tracey Lin (the leech)
 
+## Research Notes (transfer to this file later)
+
+https://docs.google.com/document/d/1SLU-Vclc7APL3wPdBwLeB8y79mH-YCzmRIgBG8pXz-g/edit?usp=sharing
+
 ## Overview
 
 
