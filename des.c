@@ -19,11 +19,22 @@ uint64_t initial_permutation(uint64_t input) {
     return output;
 }
 
-uint64_t key_schedule(uint64_t key){
+uint64_t pc_1_c(uint64_t key) {
+    uint64_t output = 0;
+    for (int i = 0; i < 28; i++) {
+        output |= ((key >> (64 - PC_1_ARR[i])) & 1) << (27 - i);
+    }
 
+    return output;
 }
 
-uint64_t f(uint32_t chunk, uint64_t key){
+uint64_t pc_1_d(uint64_t key) {
+    uint64_t output = 0;
+    for (int i = 0; i < 28; i++) {
+        output |= ((key >> (64 - PC_1_ARR[i + 28])) & 1) << (27 - i);
+    }
+    return output;
+}
 
 }
 
