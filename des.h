@@ -103,4 +103,15 @@ static char PC_2_ARR[48] = {14, 17, 11, 24,  1,  5,
 
 static char SHIFTS[16] = {1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1};
 
+void pbin(uint64_t input);
+
+uint64_t initial_permutation(uint64_t input);
+uint64_t key_schedule(uint64_t key);
+uint64_t f(uint32_t chunk, uint64_t key);
+uint64_t e(uint32_t chunk);
+uint32_t p(uint32_t chunk);
+
+void des_encrypt(char *input_filename, char *key, char *output_filename);
+void des_decrypt(char *input_filename, char *key_filename, char *output_filename);
+
 #endif
