@@ -2,9 +2,10 @@
 
 ## IVAN CHEN
 
-### date x
+### 2024-05-23
 
-info
+- Continued to work on researching the implementation of DES encryption.
+- Set up repository with Makefile and main.c file.
 
 ### date y
 
