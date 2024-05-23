@@ -36,14 +36,20 @@ uint64_t pc_1_d(uint64_t key) {
     return output;
 }
 
+uint64_t e(uint32_t chunk){
+    return 0ULL;
 }
 
-uint64_t e(uint32_t chunk){
+uint64_t key_schedule(uint64_t key){
+    return 0ULL;
+}
 
+uint64_t f(uint32_t chunk, uint64_t key){
+    return 0ULL;
 }
 
 uint32_t p(uint32_t chunk){
-
+    return 0ULL;
 }
 
 void des_encrypt(char *input_filename, char *key, char *output_filename) {
