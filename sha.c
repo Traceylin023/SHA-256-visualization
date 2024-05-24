@@ -1,15 +1,19 @@
+#include <stdio.h>
 #include "main.h"
+#include "des.h"
 #include "sha.h"
 
-uint64_t pad(uint64_t input, uint64_t bit_num, uint64_t plaintext_length) {
-    int first_pad = 0b1;
-    int zero_pad = 0b0;
-    uint64_t output = (input << 1) | first_pad;
-    for (int i = 0; i < (448%512 - 1 - bit_num); i++) {
-        output = (output << 1) | zero_pad;
+uint32_t *pad(char *input, int chunkNum) {
+    uint32_t output[16] = {0};
+    for (int i = 0; i < sizeof(input); i++) {
+        output[i/4] |= input[i];
+        output[i/4] << 8;
     }
+    uint32_t one_pad = 0b1;
+    uint32_t zero_pad = 0b0;
+    uint32_t *ptr = output;
     // return 0ULL;
-    return output;
+    return ptr;
 }
 
 void sha_encrypt (char *input_filename, char *output_filename) {

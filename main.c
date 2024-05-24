@@ -27,8 +27,8 @@ int main(int argc, char* argv[]) {
 
     // printf("\n");
 
-    pbin(12492240UL, 64);
-    pbin(e(12492240UL), 48);
+    // pbin(12492240UL, 64);
+    // pbin(e(12492240UL), 48);
 
     // if (strcmp(argv[1], "encrypt") == 0) {
 
@@ -38,5 +38,10 @@ int main(int argc, char* argv[]) {
     // else if (strcmp(argv[1], "decrypt") == 0) {
 
     // }
+
+    char *c = "hello";
+    for (int i = 0; i < 16; i++) {
+        pbin(c, 32);
+    }
 
 }
