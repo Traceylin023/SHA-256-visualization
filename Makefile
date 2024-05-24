@@ -1,6 +1,6 @@
 default: run
 compile main.out: main.o des.o sha.o
-	@gcc -o main.out main.o des.o sha.o -lm
+	@gcc -o main.out main.o des.o sha.o -lm -w
 usage:
 	@echo
 	@echo "USAGE"
