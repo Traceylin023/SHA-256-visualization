@@ -34,7 +34,8 @@ info
 
 ### 2024-05-23
 
- - Research on the SHA-256 hash, created sha.h and sha.c files.
+ - Continued research on the SHA-256 hash
+ - Added the sha.h and sha.c files and updated the Makefile
  - Started the bit padding step of the hash.
  - Added hash constants to the repository.
 
