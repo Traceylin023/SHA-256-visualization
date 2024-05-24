@@ -36,11 +36,33 @@ uint64_t pc_1_d(uint64_t key) {
     return output;
 }
 
-uint64_t e(uint32_t chunk){
-    return 0ULL;
+uint64_t key_schedule(uint64_t key, int round) {
+    uint64_t key_c = key_shift(pc_1_c(key), round);
+    uint64_t key_d = key_shift(pc_1_d(key), round);
+
+    key_c = key_shift(pc_1_c(key), round);
+    key_d = key_shift(pc_1_d(key), round);
+
+    return pc_2(key_c, key_d);
 }
 
-uint64_t key_schedule(uint64_t key){
+uint64_t key_shift(uint64_t key, int round) {
+    key = key << SHIFTS[round] | key >> (28 - SHIFTS[round]);
+    return key;
+}
+
+uint64_t pc_2(uint64_t c, uint64_t d) {
+    uint64_t combined = c << 28 | d;
+    uint64_t key = 0;
+
+    for (int i = 0; i < 48; i++) {
+        key |= ((combined >> (56 - PC_2_ARR[i])) & 1) << (47 - i);
+    }
+
+    return key;
+}
+
+uint64_t e(uint32_t chunk){
     return 0ULL;
 }
 
