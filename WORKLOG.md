@@ -32,13 +32,15 @@ info
 
 ## CLEMENS LI
 
-### date x
+### 2024-05-23
 
-info
+ - Research on the SHA-256 hash, created sha.h and sha.c files.
+ - Started the bit padding step of the hash.
+ - Added hash constants to the repository.
 
 ### date y
 
-info
+
 
 
 ## TRACEY LIN
