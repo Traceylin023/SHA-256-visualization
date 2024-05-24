@@ -29,6 +29,7 @@ int main(int argc, char* argv[]) {
 
     pbin(12492240UL, 64);
     pbin(e(12492240UL), 48);
+    pbin(in_key_xor(e(12492240UL), key_schedule(3759860997584293892ULL, 1)), 48);
 
     // if (strcmp(argv[1], "encrypt") == 0) {
 

@@ -70,7 +70,16 @@ uint64_t e(uint64_t chunk){
     return output;
 }
 
-uint64_t f(uint64_t chunk, uint64_t key){
+uint64_t in_key_xor(uint64_t input, uint64_t key) {
+    uint64_t output = 0;
+    for (int i = 0; i < 48; i++) {
+        output |= (((input >> (47 - i)) & 1) ^ ((key >> (47 - i)) & 1)) << (47 - i);
+    }
+    return output;
+}
+
+    uint64_t f(uint64_t chunk, uint64_t key)
+{
     return 0ULL;
 }
 
