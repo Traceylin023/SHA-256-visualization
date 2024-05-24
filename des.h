@@ -106,15 +106,15 @@ static char SHIFTS[16] = {1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1};
 void pbin(uint64_t input, int size);
 
 uint64_t initial_permutation(uint64_t input);
-uint64_t e(uint32_t chunk);
-uint64_t pc_1_c(uint64_t key);
-uint64_t pc_1_d(uint64_t key);
+uint64_t e(uint64_t chunk);
+uint64_t f(uint64_t chunk, uint64_t key);
+uint64_t p(uint64_t chunk);
 
 uint64_t key_schedule(uint64_t key, int round);
+uint64_t pc_1_c(uint64_t key);
+uint64_t pc_1_d(uint64_t key);
 uint64_t key_shift(uint64_t key, int round);
 uint64_t pc_2(uint64_t c, uint64_t d);
-uint64_t f(uint32_t chunk, uint64_t key);
-uint32_t p(uint32_t chunk);
 
 void des_encrypt(char *input_filename, char *key, char *output_filename);
 void des_decrypt(char *input_filename, char *key_filename, char *output_filename);

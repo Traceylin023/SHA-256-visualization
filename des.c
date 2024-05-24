@@ -62,15 +62,19 @@ uint64_t pc_2(uint64_t c, uint64_t d) {
     return key;
 }
 
-uint64_t e(uint32_t chunk){
+uint64_t e(uint64_t chunk){
+    uint64_t output = 0;
+    for (int i = 0; i < 48; i++) {
+        output |= ((chunk >> (32 - E_ARR[i])) & 1) << (47 - i);
+    }
+    return output;
+}
+
+uint64_t f(uint64_t chunk, uint64_t key){
     return 0ULL;
 }
 
-uint64_t f(uint32_t chunk, uint64_t key){
-    return 0ULL;
-}
-
-uint32_t p(uint32_t chunk){
+uint64_t p(uint64_t chunk){
     return 0ULL;
 }
 
