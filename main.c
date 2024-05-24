@@ -1,5 +1,6 @@
 #include "main.h"
 #include "des.h"
+#include "sha.h"
 
 int main(int argc, char* argv[]) {
 
