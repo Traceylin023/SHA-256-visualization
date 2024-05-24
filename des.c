@@ -1,9 +1,9 @@
 #include "main.h"
 #include "des.h"
 
-void pbin(uint64_t input) {
+void pbin(uint64_t input, int size) {
     char count = 0;
-    for (int i = 63; i >= 0; i--) {
+    for (int i = size - 1; i >= 0; i--) {
         if (count++ % 8 == 0) printf(" ");
         if ((input >> i) & 1) printf("1");
         else                  printf("0");
