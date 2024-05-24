@@ -2,12 +2,19 @@
 
 ## IVAN CHEN
 
-### 2024-05-23
+### 2024-05-22
 
 - Continued to work on researching the implementation of DES encryption.
 - Set up repository with Makefile and main.c file.
 
-### date y
+### 2024-05-23
+
+- Continued to work on researching the implementation of DES encryption.
+- Added the permutation tables for all stages of DES encryption.
+- Added a function to print binary of a 64-bit integer.
+- Made that function print in the opposite order of the bits for easier debugging.
+- Implemented the initial permutation stage.
+- Implemented key-splitting.
 
 info
 
