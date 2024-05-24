@@ -78,8 +78,16 @@ uint64_t in_key_xor(uint64_t input, uint64_t key) {
     return output;
 }
 
-    uint64_t f(uint64_t chunk, uint64_t key)
-{
+uint64_t s_boxes(uint64_t xored_chunk) {
+    uint8_t small_chunks[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+    for (int i = 0; i < 8; i++) {
+        small_chunks[i] = xored_chunk >> (48 - 6 * (i + 1)) & 63;
+    }
+
+    return 0ULL;
+}
+
+uint64_t f(uint64_t chunk, uint64_t key) {
     return 0ULL;
 }
 
