@@ -103,7 +103,7 @@ static char PC_2_ARR[48] = {14, 17, 11, 24,  1,  5,
 
 static char SHIFTS[16] = {1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1};
 
-void pbin(uint64_t input);
+void pbin(uint64_t input, int size);
 
 uint64_t initial_permutation(uint64_t input);
 uint64_t e(uint32_t chunk);
