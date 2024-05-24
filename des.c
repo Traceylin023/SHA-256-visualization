@@ -79,17 +79,22 @@ uint64_t in_key_xor(uint64_t input, uint64_t key) {
 }
 
 uint64_t s_boxes(uint64_t xored_chunk) {
+
     uint8_t small_chunks[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+    uint64_t output = 0;
+
     for (int i = 0; i < 8; i++) {
         small_chunks[i] = xored_chunk >> (48 - 6 * (i + 1)) & 63;
     }
 
     for (int i = 0; i < 8; i++) {
-        int row = (small_chunks[i] >> 4) | small_chunks[i] & 1;
-        int col = small_chunks[i] & ~(1 << 5) & ~1;
+        int row = (small_chunks[i] >> 5 << 1) | (small_chunks[i] & 1);
+        int col = (small_chunks[i] & ~(1 << 5) & ~1) >> 1;
+        output = output << 4;
+        output |= S_PRIM_ARR[i][row * 16 + col];
     }
 
-    return 0ULL;
+    return output;
 }
 
 uint64_t f(uint64_t chunk, uint64_t key) {
