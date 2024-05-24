@@ -84,6 +84,11 @@ uint64_t s_boxes(uint64_t xored_chunk) {
         small_chunks[i] = xored_chunk >> (48 - 6 * (i + 1)) & 63;
     }
 
+    for (int i = 0; i < 8; i++) {
+        int row = (small_chunks[i] >> 4) | small_chunks[i] & 1;
+        int col = small_chunks[i] & ~(1 << 5) & ~1;
+    }
+
     return 0ULL;
 }
 
