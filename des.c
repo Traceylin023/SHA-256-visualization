@@ -19,6 +19,13 @@ uint64_t initial_permutation(uint64_t input) {
     return output;
 }
 
+uint64_t * split_l_r(uint64_t input) {
+    uint64_t *output = malloc(2 * sizeof(uint64_t));
+    output[0] = input >> 32;
+    output[1] = input & 0xFFFFFFFF;
+    return output;
+}
+
 uint64_t pc_1_c(uint64_t key) {
     uint64_t output = 0;
     for (int i = 0; i < 28; i++) {
