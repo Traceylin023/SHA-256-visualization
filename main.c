@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
     uint32_t *d = pad(c, 1);
     for (int i = 0; i < 5; i++) {
         // pbin(c[i], 32);
-        pbin(c[i], 32);
+        pbin(d[i], 32);
         printf("\n");
     }
 
