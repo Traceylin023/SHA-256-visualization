@@ -5,14 +5,14 @@
 
 uint32_t *pad(char *input, int chunkNum) {
     uint32_t output[16] = {0};
-    for (int i = 0; i < sizeof(input); i++) {
-        output[i/4] |= input[i];
+    for (int i = 0; i < sizeof(input) - 1; i++) {
         output[i/4] << 8;
+        output[i/4] |= input[i];
     }
     uint32_t one_pad = 0b1;
     uint32_t zero_pad = 0b0;
     uint32_t *ptr = output;
-    // return 0ULL;
+    // rrn 0ULL;
     return ptr;
 }
 

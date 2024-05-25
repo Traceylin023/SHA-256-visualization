@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
     // pbin(e(12492240UL), 48);
     // pbin(in_key_xor(e(12492240UL), key_schedule(3759860997584293892ULL, 1)), 48);
 
-    s_boxes(in_key_xor(e(12492240UL), key_schedule(3759860997584293892ULL, 1)));
+    // s_boxes(in_key_xor(e(12492240UL), key_schedule(3759860997584293892ULL, 1)));
 
     // if (strcmp(argv[1], "encrypt") == 0) {
 
@@ -42,9 +42,13 @@ int main(int argc, char* argv[]) {
 
     // }
 
-    char *c = "hello";
-    for (int i = 0; i < 16; i++) {
-        pbin(c, 32);
+    char c[] = "hello";
+    uint32_t *d = pad(c, 1);
+    for (int i = 0; i < 5; i++) {
+        // pbin(c[i], 32);
+        pbin(c[i], 32);
+        printf("\n");
     }
+
 
 }
