@@ -112,7 +112,8 @@ uint64_t input_key_xor(uint64_t input, uint64_t key);
 uint64_t s_box_substitution(uint64_t xored_chunk);
 uint64_t p(uint64_t chunk);
 uint64_t f(uint64_t chunk, uint64_t key);
-uint64_t p(uint64_t chunk);
+uint64_t l_r_xor(uint64_t l, uint64_t r);
+uint64_t final_permutation(uint64_t input);
 
 uint64_t key_schedule(uint64_t key, int round);
 uint64_t pc_1_c(uint64_t key);

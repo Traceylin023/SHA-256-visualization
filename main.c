@@ -6,7 +6,7 @@ int main(int argc, char* argv[]) {
 
     // Plain: Hello Wo
     // Decimal: 5216694956355245935
-    // L: 1214606444
+    // L: 1214606444 (3745570514)
     // R: 1864390511 (12492240)
     // KEY: 3759860997584293892
 
@@ -51,13 +51,18 @@ int main(int argc, char* argv[]) {
 
     // }
 
-    char c[] = "hello";
-    uint32_t *d = pad(c, 1);
-    for (int i = 0; i < 5; i++) {
-        // pbin(c[i], 32);
-        pbin(d[i], 32);
-        printf("\n");
-    }
+    // char c[] = "hello";
+    // uint32_t *d = pad(c, 1);
+    // for (int i = 0; i < 5; i++) {
+    //     // pbin(c[i], 32);
+    //     pbin(d[i], 32);
+    //     printf("\n");
+    // }
 
-
+    u_int64_t * split = split_l_r(initial_permutation(5216694956355245935ULL));
+    uint64_t l = split[0];
+    uint64_t r = f(split[1], key_schedule(3759860997584293892ULL, 1));
+    pbin(l, 32);
+    pbin(r, 32);
+    pbin(l_r_xor(l, r), 32);
 }

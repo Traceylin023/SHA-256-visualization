@@ -104,16 +104,20 @@ uint64_t s_box_substitution(uint64_t xored_chunk) {
     return output;
 }
 
-uint64_t f(uint64_t chunk, uint64_t key) {
-    return 0ULL;
-}
-
 uint64_t p(uint64_t chunk) {
     uint64_t output = 0;
     for (int i = 0; i < 32; i++) {
         output |= ((chunk >> (32 - P_ARR[i])) & 1) << (31 - i);
     }
     return output;
+}
+
+uint64_t f(uint64_t chunk, uint64_t key) {
+    return p(s_box_substitution(input_key_xor(e(chunk), key)));
+}
+
+uint64_t l_r_xor(uint64_t l, uint64_t r) {
+    return l ^ r;
 }
 
 void des_encrypt(char *input_filename, char *key, char *output_filename) {
