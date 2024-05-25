@@ -16,7 +16,19 @@
 - Implemented the initial permutation stage.
 - Implemented key-splitting.
 
-info
+### 2024-05-24
+
+- Update pbin function to print n bits
+- Implemented key shifting based on round and pc_2
+- Implement function E (expansion of last 32 bits in block to 48 bits)
+- Implement function which xors the 48 bit key with the 48 bit block
+- Add s_boxes function
+    - Splits the 48 bit block into 8 6-bit blocks
+    - Calculates the row and column of each 6-bit block (row = first and last bit, column = middle 4 bits)
+    - Looks up the value in the s-boxes
+    - Concatenates the 8 4-bit blocks into a 32-bit block
+- Started implementing the P permutation
+
 
 
 ## EDMUND CHIN
