@@ -12,6 +12,7 @@ int main(int argc, char* argv[]) {
 
     // pbin(5216694956355245935ULL, 64);
     // pbin(initial_permutation(5216694956355245935ULL), 64);
+    // u_int64_t * split = split_l_r(initial_permutation(5216694956355245935ULL));
 
     // printf("\n");
 
@@ -29,9 +30,17 @@ int main(int argc, char* argv[]) {
 
     // pbin(12492240UL, 64);
     // pbin(e(12492240UL), 48);
-    // pbin(in_key_xor(e(12492240UL), key_schedule(3759860997584293892ULL, 1)), 48);
+    // pbin(input_key_xor(e(12492240UL), key_schedule(3759860997584293892ULL, 1)), 48);
+    // pbin(s_box_substitution(input_key_xor(e(12492240UL), key_schedule(3759860997584293892ULL, 1))), 32);
+    // pbin(p(s_box_substitution(input_key_xor(e(12492240UL), key_schedule(3759860997584293892ULL, 1)))), 32);
 
-    // s_boxes(in_key_xor(e(12492240UL), key_schedule(3759860997584293892ULL, 1)));
+    // uint64_t l = 3745570514UL;
+    // uint64_t r = p(s_box_substitution(input_key_xor(e(12492240UL), key_schedule(3759860997584293892ULL, 1))));
+    // uint64_t r = f(12492240UL, key_schedule(3759860997584293892ULL, 1));
+
+    // pbin(l, 32);
+    // pbin(r, 32);
+    // pbin(l_r_xor(l, r), 32);
 
     // if (strcmp(argv[1], "encrypt") == 0) {
 

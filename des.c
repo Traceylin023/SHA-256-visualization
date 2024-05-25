@@ -77,7 +77,7 @@ uint64_t e(uint64_t chunk){
     return output;
 }
 
-uint64_t in_key_xor(uint64_t input, uint64_t key) {
+uint64_t input_key_xor(uint64_t input, uint64_t key) {
     uint64_t output = 0;
     for (int i = 0; i < 48; i++) {
         output |= (((input >> (47 - i)) & 1) ^ ((key >> (47 - i)) & 1)) << (47 - i);
@@ -85,7 +85,7 @@ uint64_t in_key_xor(uint64_t input, uint64_t key) {
     return output;
 }
 
-uint64_t s_boxes(uint64_t xored_chunk) {
+uint64_t s_box_substitution(uint64_t xored_chunk) {
 
     uint8_t small_chunks[8] = {0, 0, 0, 0, 0, 0, 0, 0};
     uint64_t output = 0;

@@ -108,8 +108,9 @@ void pbin(uint64_t input, int size);
 uint64_t initial_permutation(uint64_t input);
 uint64_t * split_l_r(uint64_t input);
 uint64_t e(uint64_t chunk);
-uint64_t in_key_xor(uint64_t input, uint64_t key);
-uint64_t s_boxes(uint64_t xored_chunk);
+uint64_t input_key_xor(uint64_t input, uint64_t key);
+uint64_t s_box_substitution(uint64_t xored_chunk);
+uint64_t p(uint64_t chunk);
 uint64_t f(uint64_t chunk, uint64_t key);
 uint64_t p(uint64_t chunk);
 
