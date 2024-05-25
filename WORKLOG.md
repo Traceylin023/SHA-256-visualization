@@ -51,7 +51,10 @@ info
  - Started the bit padding step of the hash.
  - Added hash constants to the repository.
 
-### date y
+### 2024-05-24
+ - Continued research
+ - Changed padding function to use an array of 32-bit integers
+ - Finished appending plaintext into 32-bit ints
 
 
 
