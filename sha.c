@@ -16,9 +16,17 @@
 
 
 uint32_t *pad(char *input, int chunkNum) {
-    uint32_t output[16] = {0};
+    int size = chunkNum * 16;
+    uint32_t output[size];
+    for (int i = 0; i < size; i++) {
+        output[i] = 0;
+    }
+
+    /*  The above section is weird because I couldn't figure out
+        how to create a variable-length array but this works somehow */
+        
     int blockNum = 0;
-    for (int i = 0; i < sizeof(input) - 1; i++) { // plaintext in binary
+    for (int i = 0; i < strlen(input) + (4-strlen(input)%4); i++) {
         if (i/4 > blockNum) {
             blockNum++;
         }
@@ -27,6 +35,7 @@ uint32_t *pad(char *input, int chunkNum) {
         pbin(output[blockNum], 32);
         output[blockNum] |= input[i];
         pbin(output[blockNum], 32);
+        printf("%d", blockNum);
         printf("\n");
     }
     uint32_t one_pad = 0b1;
