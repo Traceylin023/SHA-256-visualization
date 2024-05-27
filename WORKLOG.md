@@ -29,6 +29,11 @@
     - Concatenates the 8 4-bit blocks into a 32-bit block
 - Started implementing the P permutation
 
+### 2024-05-27
+
+ - Update pbin function to accept size to create a variable-length array
+ - Fixed the length of padding loop to work properly
+
 
 
 ## EDMUND CHIN
