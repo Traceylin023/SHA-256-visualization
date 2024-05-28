@@ -15,6 +15,13 @@
 #include <stdint.h>
 
 
+uint32_t * rotate(uint32_t * input, int shift){
+    uint32_t a = *input >> shift;
+    uint32_t b = *input << (32 - shift);
+    uint32_t c = a | b ;
+    return &c;
+}   
+
 uint32_t *pad(char *input, int chunkNum) {
     int size = chunkNum * 16;
     uint32_t output[size];
@@ -50,12 +57,14 @@ uint32_t *pad(char *input, int chunkNum) {
 }
 
 void sha_encrypt (char *input_filename, char *output_filename) {
-    uint32_t initialArray[64];
+    uint32_t initialArray[64];  //initialize array
     int f = open(input_filename, O_RDONLY);
     FILE * fil = fopen(input_filename, O_RDONLY);
     fseek(fil, 0, SEEK_END);
     unsigned long fileLength = ftell(fil);
     double chunks = trunc(fileLength / 512)+1;
+
+
 }
 
 void sha_decrypt (char *input_filename, char *output_filename) {
