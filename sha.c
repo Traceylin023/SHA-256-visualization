@@ -96,7 +96,6 @@ void sha_encrypt (char *input_filename, char *output_filename) {
 
     //initialize 64 constants
     uint32_t constants[64];
-    char * ptr;
     constants[0] = strtol("428a2f98",ptr,16);
     constants[1] = strtol("71374491",ptr,16);
     constants[2] = strtol("b5c0fbcf",ptr,16);
