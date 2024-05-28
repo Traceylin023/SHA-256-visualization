@@ -2,45 +2,55 @@
 #include "des.h"
 #include "sha.h"
 
+void assert(uint64_t input, uint64_t expected, char *message) {
+    if (input != expected) {
+        printf("Assertion failed: %s\n", message);
+        printf("Expected: ");
+        pbin(expected, 64);
+        printf("Received: ");
+        pbin(input, 64);
+        exit(1);
+    }
+    else {
+        printf("Assertion passed: %s\n", message);
+    }
+}
+
+void run_tests() {
+
+    uint64_t m = 81985529216486895ULL;
+    uint64_t k = 1383827165325090801ULL;
+
+    // Test initial_permutation
+    uint64_t ip = initial_permutation(m);
+    assert(ip, 14699974583363760298ULL, "initial_permutation");
+
+    // Test split_l_r
+    uint64_t *split = split_l_r(ip);
+    assert(split[0], 3422604543, "split_l");
+    assert(split[1], 4037734570, "split_r");
+
+    // Test pc_1_c
+    uint64_t pc1c = pc_1_c(k);
+    assert(pc1c, 252496559ULL, "pc_1_c");
+
+    // Test pc_1_d
+    uint64_t pc1d = pc_1_d(k);
+    assert(pc1d, 89548687ULL, "pc_1_d");
+
+}
+
 int main(int argc, char* argv[]) {
 
-    // Plain: Hello Wo
-    // Decimal: 5216694956355245935
-    // L: 1214606444 (3745570514)
-    // R: 1864390511 (12492240)
-    // KEY: 3759860997584293892
+    // Decimal: 81985529216486895
+    // L: 19088743
+    // R: 2309737967
+    // KEY: 1383827165325090801
 
-    // pbin(5216694956355245935ULL, 64);
-    // pbin(initial_permutation(5216694956355245935ULL), 64);
-    // u_int64_t * split = split_l_r(initial_permutation(5216694956355245935ULL));
-
-    // printf("\n");
-
-    // pbin(3759860997584293892ULL, 64);
-    // pbin(pc_1_c(3759860997584293892ULL), 28);
-    // pbin(pc_1_d(3759860997584293892ULL), 28);
-
-    // pbin(key_shift(pc_1_c(3759860997584293892ULL), 1), 28);
-    // pbin(key_shift(pc_1_d(3759860997584293892ULL), 1), 28);
-
-    // pbin(pc_2(key_shift(pc_1_c(3759860997584293892ULL), 1), key_shift(pc_1_d(3759860997584293892ULL), 1)), 48);
-    // pbin(key_schedule(3759860997584293892ULL, 1), 48);
-
-    // printf("\n");
-
-    // pbin(12492240UL, 64);
-    // pbin(e(12492240UL), 48);
-    // pbin(input_key_xor(e(12492240UL), key_schedule(3759860997584293892ULL, 1)), 48);
-    // pbin(s_box_substitution(input_key_xor(e(12492240UL), key_schedule(3759860997584293892ULL, 1))), 32);
-    // pbin(p(s_box_substitution(input_key_xor(e(12492240UL), key_schedule(3759860997584293892ULL, 1)))), 32);
-
-    // uint64_t l = 3745570514UL;
-    // uint64_t r = p(s_box_substitution(input_key_xor(e(12492240UL), key_schedule(3759860997584293892ULL, 1))));
-    // uint64_t r = f(12492240UL, key_schedule(3759860997584293892ULL, 1));
-
-    // pbin(l, 32);
-    // pbin(r, 32);
-    // pbin(l_r_xor(l, r), 32);
+    if (argc > 2 && strcmp(argv[1], "test") == 0)
+    {
+        run_tests();
+    }
 
     // if (strcmp(argv[1], "encrypt") == 0) {
 
@@ -58,12 +68,7 @@ int main(int argc, char* argv[]) {
     // pbin(*d, 32);
     // pbin(*(d+1), 32);
 
-    // u_int64_t * split = split_l_r(initial_permutation(5216694956355245935ULL));
-    // uint64_t l = split[0];
-    // uint64_t r = f(split[1], key_schedule(3759860997584293892ULL, 1));
-    // pbin(l, 32);
-    // pbin(r, 32);
-    // pbin(l_r_xor(l, r), 32);
+    // des_encrypt("tests/input.txt", "tests/key.txt", "tests/output.txt");
     
-    sha_encrypt("message.txt", "output.txt");
+    // sha_encrypt("message.txt", "output.txt");
 }
