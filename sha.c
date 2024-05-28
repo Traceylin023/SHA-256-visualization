@@ -51,14 +51,20 @@ uint32_t *pad(char *input, int chunkNum) {
         how to create a variable-length array but this works somehow */
         
     int blockNum = 0;
-    for (int i = 0; i < strlen(input) + (4-strlen(input)%4); i++) {
+    printf("%d", strlen(input));
+    for (int i = 0; i < strlen(input) + (4-(strlen(input)%4)); i++) {
         if (i/4 > blockNum) {
             blockNum++;
         }
         pbin(output[blockNum], 32);
         output[blockNum] = output[blockNum] << 8;
         pbin(output[blockNum], 32);
-        output[blockNum] |= input[i];
+        if (i > strlen(input)) {
+            output[blockNum] |= 0b0;
+        }
+        else {
+            output[blockNum] |= input[i];
+        }
         pbin(output[blockNum], 32);
         printf("%d", blockNum);
         printf("\n");
