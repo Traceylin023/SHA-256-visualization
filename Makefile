@@ -9,11 +9,11 @@ usage:
 	@echo "FLAGS"
 	@echo "=========="
 main.o: main.c main.h des.h sha.h
-	@gcc -c main.c
+	@gcc -c main.c -w
 des.o: des.c main.h des.h
-	@gcc -c des.c
+	@gcc -c des.c -w
 sha.o: sha.c main.h sha.h
-	@gcc -c sha.c
+	@gcc -c sha.c -w
 run: main.out
 	@./main.out $(ARGS)
 encrypt: main.out
