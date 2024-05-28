@@ -44,7 +44,7 @@ uint32_t *pad(char *input, int chunkNum) {
     int size = chunkNum * 16;
     uint32_t output[size];
     for (int i = 0; i < size; i++) {
-        output[i] = 0;
+        output[i] = 0b0;
     }
 
     /*  The above section is weird because I couldn't figure out

@@ -52,7 +52,7 @@ int main(int argc, char* argv[]) {
     // }
 
     char text[] = "hello";
-    uint32_t *dump = pad(text,1);
+    uint32_t *dump = pad(*text,1);
     pbin(dump[0], 32);
     pbin(dump[1], 32);
 
