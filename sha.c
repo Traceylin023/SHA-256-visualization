@@ -22,6 +22,24 @@ uint32_t * rotate(uint32_t * input, int shift){
     return &c;
 }   
 
+uint32_t * funct0(uint32_t * n0){
+    uint32_t a = rotate(*n0, 7);
+    uint32_t b = rotate(*n0, 18);
+    uint32_t c = *n0 >> 3;
+    uint32_t acc0 = a ^ b;
+    uint32_t acc1 = acc0 ^ c;
+    return &acc1;
+}
+
+uint32_t * funct1(uint32_t * n0){
+    uint32_t a = rotate(*n0, 17);
+    uint32_t b = rotate(*n0, 9);
+    uint32_t c = *n0 >> 10;
+    uint32_t acc0 = a ^ b;
+    uint32_t acc1 = acc0 ^ c;
+    return &acc1;
+}
+
 uint32_t *pad(char *input, int chunkNum) {
     int size = chunkNum * 16;
     uint32_t output[size];
@@ -144,11 +162,15 @@ void sha_encrypt (char *input_filename, char *output_filename) {
     constants[62] = strtol("bef9a3f7",ptr,16);
     constants[63] = strtol("c67178f2",ptr,16);
 
-
+    uint32_t arr[64];
     for(int i = 0; i < chunks; i++){
-
+        for(int i = 0; i < 16; i++){ // read the chunck
+            read(f, arr[i], 32);
+        }
+        for(int i = 0; i < 47; i++){ // calculate the rest of the array
+            arr[i+16] = arr[i] + *funct0(arr[i+1]) + arr[i+9] + *funct1(i+14) ;
+        }
     }
-
 }
 
 void sha_decrypt (char *input_filename, char *output_filename) {
