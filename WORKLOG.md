@@ -37,14 +37,22 @@
 
 
 ## EDMUND CHIN
+ 
+### 2024-05-23  
 
-### date x
+- researched the sha-256 algorithm  
 
-info
+### 2024-05-24    
 
-### date y
+- researched more of the sha-256 algorithm
+- started the sha-256 logic
 
-info
+### 2024-05-27  
+
+- worked on more of the sha-256 algorithm logic
+- added the first initial 8 hash values and 64 constants
+- implemented the right rotate logic
+- implemented the first 2 functions used in hash computation
 
 
 ## CLEMENS LI
