@@ -20,5 +20,7 @@ encrypt: main.out
 	@./main.out encrypt ${ARGS}
 decrypt: main.out
 	@./main.out decrypt ${ARGS}
+test: main.out
+	@./main.out test
 clean:
 	rm *.o main.out
