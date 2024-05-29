@@ -92,11 +92,11 @@ int main(int argc, char* argv[]) {
     // R: 2309737967
     // KEY: 1383827165325090801
 
-    if (argc == 2 && strcmp(argv[1], "test") == 0) {
-        run_tests();
-    } else {
-        des_encrypt("tests/input.txt", "tests/key.txt", "tests/output.txt");
-    }
+    // if (argc == 2 && strcmp(argv[1], "test") == 0) {
+    //     run_tests();
+    // } else {
+    //     des_encrypt("tests/input.txt", "tests/key.txt", "tests/output.txt");
+    // }
 
     // if (strcmp(argv[1], "encrypt") == 0) {
 

@@ -3,8 +3,6 @@
 
 // FIPS 180-4 Constants
 
-uint32_t hash[8];
-char * ptr;
 static int HASH_ARR[8] = {1779033703, 3144134277,
                           1013904242, 2773480762,
                           1359893119, 2600822924,

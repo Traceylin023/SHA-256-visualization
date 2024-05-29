@@ -23,14 +23,14 @@ int err(int line){
     exit(1);
 }
 
-uint32_t * rotate(uint32_t * input, int shift){
+uint32_t rotate(uint32_t input, int shift){
     uint32_t a = *input >> shift;
     uint32_t b = *input << (32 - shift);
     uint32_t c = a | b ;
     return &c;
 }   
 
-uint32_t * funct0(uint32_t * n0){
+uint32_t funct0(uint32_t n0){
     uint32_t a = rotate(*n0, 7);
     uint32_t b = rotate(*n0, 18);
     uint32_t c = *n0 >> 3;
