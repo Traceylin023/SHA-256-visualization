@@ -4,15 +4,16 @@
 
 void assert(uint64_t input, uint64_t expected, char *message) {
     if (input != expected) {
-        printf("Assertion failed: %s\n", message);
-        printf("Expected: ");
+        printf("\033[1;31mFailed\033[0m: \033[0;34m%s\033[0m\n\n", message);
+        printf("\033[1;36mExpected\033[0m:\033[0;34m");
         pbin(expected, 64);
-        printf("Received: ");
+        printf("\033[0m\033[1;33mReceived\033[0m:\033[0;34m");
         pbin(input, 64);
+        printf("\033[0m");
         exit(1);
     }
     else {
-        printf("Assertion passed: %s\n", message);
+        printf("\033[1;32mPassed\033[0m: \033[0;34m%s\033[0m\n", message);
     }
 }
 
@@ -47,8 +48,7 @@ int main(int argc, char* argv[]) {
     // R: 2309737967
     // KEY: 1383827165325090801
 
-    if (argc > 2 && strcmp(argv[1], "test") == 0)
-    {
+    if (argc == 2 && strcmp(argv[1], "test") == 0) {
         run_tests();
     }
 

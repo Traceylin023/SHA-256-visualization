@@ -2,6 +2,8 @@
 
 # CLEonsTRAntInnoVACHIN
 
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Stuycs-K/final-project-09-chen-ivan-chin-edmund-li-clemens/c-cpp.yml?style=for-the-badge)
+
 ## Group Info 
 
 Group Members: 
