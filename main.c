@@ -69,17 +69,17 @@ int main(int argc, char* argv[]) {
     //     pbin(*(d+i), 32);
     // }
 
-    char e[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec dignissim ipsum. Proin lacinia, risus.";
-    uint32_t *f;
-    f = pad(e, 2);
-    printf("\n");
-    for (int i = 0; i < 32; i++) {
-        if (i == 16) {
-            printf("\n");
-            printf("\n");
-        }
-        pbin(*(f+i), 32);
-    }
+    // char e[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec dignissim ipsum. Proin lacinia, risus.";
+    // uint32_t *f;
+    // f = pad(e, 2);
+    // printf("\n");
+    // for (int i = 0; i < 32; i++) {
+    //     if (i == 16) {
+    //         printf("\n");
+    //         printf("\n");
+    //     }
+    //     pbin(*(f+i), 32);
+    // }
 
     // des_encrypt("tests/input.txt", "tests/key.txt", "tests/output.txt");
     
