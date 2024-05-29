@@ -153,9 +153,6 @@ uint64_t final_permutation(uint64_t input) {
 
 uint64_t des_encrypt(uint64_t data, uint64_t key_64) {
 
-    // uint64_t data = 81985529216486895ULL;
-    // uint64_t key_64 = 1383827165325090801ULL;
-
     uint64_t * split = split_l_r(initial_permutation(data));
     uint64_t * key_schedule = generate_key_schedule(key_64);
 
@@ -173,9 +170,6 @@ uint64_t des_encrypt(uint64_t data, uint64_t key_64) {
 
 uint64_t des_decrypt(uint64_t data, uint64_t key_64) {
 
-    // uint64_t data = 9648983453391827973UL;
-    // uint64_t key_64 = 1383827165325090801ULL;
-
     uint64_t * split = split_l_r(initial_permutation(data));
     uint64_t * key_schedule = generate_key_schedule(key_64);
     
@@ -189,4 +183,50 @@ uint64_t des_decrypt(uint64_t data, uint64_t key_64) {
     }
 
     return final_permutation(r << 32 | l);
+}
+
+int des_encrypt_file(char * input_filename, char * output_filename, uint64_t key_64) {
+    FILE * input_file = fopen(input_filename, "r");
+    FILE * output_file = fopen(output_filename, "w");
+
+    if (input_file == NULL || output_file == NULL) {
+        return -1;
+    }
+
+    uint64_t * key_schedule = generate_key_schedule(key_64);
+    uint64_t buffer = 0;
+    uint64_t encrypted = 0;
+
+    while (fread(&buffer, sizeof(uint64_t), 1, input_file) == 1) {
+        encrypted = des_encrypt(buffer, key_64);
+        fwrite(&encrypted, sizeof(uint64_t), 1, output_file);
+    }
+
+    fclose(input_file);
+    fclose(output_file);
+
+    return 0;
+}
+
+int des_decrypt_file(char * input_filename, char * output_filename, uint64_t key_64) {
+    FILE * input_file = fopen(input_filename, "r");
+    FILE * output_file = fopen(output_filename, "w");
+
+    if (input_file == NULL || output_file == NULL) {
+        return -1;
+    }
+
+    uint64_t * key_schedule = generate_key_schedule(key_64);
+    uint64_t buffer = 0;
+    uint64_t decrypted = 0;
+
+    while (fread(&buffer, sizeof(uint64_t), 1, input_file) == 1) {
+        decrypted = des_decrypt(buffer, key_64);
+        fwrite(&decrypted, sizeof(uint64_t), 1, output_file);
+    }
+
+    fclose(input_file);
+    fclose(output_file);
+
+    return 0;
 }

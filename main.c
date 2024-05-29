@@ -106,9 +106,12 @@ int main(int argc, char* argv[]) {
     } else {
         uint64_t m = 81985529216486895ULL;
         uint64_t k = 1383827165325090801ULL;
-        uint64_t e = des_encrypt(m, k);
-        pbin(e, 64);
-        pbin(des_decrypt(e, k), 64);
+        // uint64_t e = des_encrypt(m, k);
+        // pbin(e, 64);
+        // pbin(des_decrypt(e, k), 64);
+
+        des_encrypt_file("tests/input_enc.txt", "tests/output_enc.txt", k);
+        des_decrypt_file("tests/output_enc.txt", "tests/output_dec.txt", k);
 
         // char c[] = "hello";
         // uint32_t *d;
