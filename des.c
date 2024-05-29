@@ -143,8 +143,16 @@ void des_encrypt(char *input_filename, char *key, char *output_filename) {
     uint64_t key_64 = 1383827165325090801ULL;
 
     uint64_t * split = split_l_r(initial_permutation(data));
-    print_key_schedule(generate_key_schedule(key_64));
+    uint64_t * key_schedule = generate_key_schedule(key_64);
 
+    for (int i = 0; i < 16; i++) {
+        uint64_t temp = r;
+        r = l_r_xor(l, f(r, key_schedule[i]));
+        l = temp;
+    }
+
+    uint64_t output = final_permutation(r << 32 | l);
+    pbin(output, 64);
 }
 
 void des_decrypt(char *input_filename, char *key_filename, char *output_filename) {
