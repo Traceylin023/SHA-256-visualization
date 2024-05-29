@@ -4,7 +4,7 @@
 void pbin(uint64_t input, int size) {
     char count = 0;
     for (int i = size - 1; i >= 0; i--) {
-        if (count++ % 8 == 0) printf(" ");
+        if (count++ % 8 == 0 && i != size - 1) printf(" ");
         if ((input >> i) & 1) printf("1");
         else                  printf("0");
     }
