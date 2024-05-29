@@ -16,6 +16,13 @@
 #include <stdbool.h>
 
 
+int err(int line){
+    printf("line: %d\n",line);
+    printf("errno %d\n",errno);
+    printf("%s\n",strerror(errno));
+    exit(1);
+}
+
 uint32_t * rotate(uint32_t * input, int shift){
     uint32_t a = *input >> shift;
     uint32_t b = *input << (32 - shift);
@@ -170,10 +177,13 @@ void sha_encrypt (char *input_filename, char *output_filename) {
     uint32_t arr[64];
     for(int i = 0; i < chunks; i++){
         for(int i = 0; i < 16; i++){ // read the chunck
-            read(f, arr[i], 32);
+            int asdf = read(f, arr, 4); err(__LINE__);
+            // printf("arr[%d]: %ld\n",i, arr[i]);
+            // pbin(arr[i], 32);
+            // printf("[%d]\n",i);
         }
         for(int i = 0; i < 47; i++){ // calculate the rest of the array
-            arr[i+16] = arr[i] + *funct0(arr[i+1]) + arr[i+9] + *funct1(i+14) ;
+            arr[i+16] = arr[i] + *funct0(&arr[i+1]) + arr[i+9] + *funct1(&arr[i+14]);
         }
     }
 }
