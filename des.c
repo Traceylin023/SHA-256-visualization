@@ -43,14 +43,30 @@ uint64_t pc_1_d(uint64_t key) {
     return output;
 }
 
-uint64_t key_schedule(uint64_t key, int round) {
-    uint64_t key_c = key_shift(pc_1_c(key), round);
-    uint64_t key_d = key_shift(pc_1_d(key), round);
+uint64_t * generate_key_schedule(uint64_t key) {
 
-    key_c = key_shift(pc_1_c(key), round);
-    key_d = key_shift(pc_1_d(key), round);
+    uint64_t c = pc_1_c(key);
+    uint64_t d = pc_1_d(key);
+    uint64_t *keys = malloc(16 * sizeof(uint64_t));
 
-    return pc_2(key_c, key_d);
+    for (int i = 0; i < 16; i++) {
+        keys[i] = 0;
+        c = key_shift(c, i);
+        d = key_shift(d, i);
+        printf("Round %d\n", i + 1);
+        pbin(c, 28);
+        pbin(d, 28);
+        keys[i] = pc_2(c, d);
+    }
+
+    return keys;
+}
+
+void print_key_schedule(uint64_t *keys) {
+    for (int i = 0; i < 16; i++) {
+        printf("Key %2.d: ", i + 1);
+        pbin(keys[i], 48);
+    }
 }
 
 uint64_t key_shift(uint64_t key, int round) {
@@ -121,6 +137,14 @@ uint64_t l_r_xor(uint64_t l, uint64_t r) {
 }
 
 void des_encrypt(char *input_filename, char *key, char *output_filename) {
+
+    uint64_t data = 81985529216486895ULL;
+    uint64_t l = 3422604543; // 19088743; // 3422604543
+    uint64_t r = 4037734570; // 2309737967; // 4037734570
+    uint64_t key_64 = 1383827165325090801ULL;
+
+    uint64_t * split = split_l_r(initial_permutation(data));
+    print_key_schedule(generate_key_schedule(key_64));
 
 }
 
