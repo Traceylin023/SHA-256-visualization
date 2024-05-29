@@ -83,6 +83,14 @@ void run_tests() {
     // Test final_permutation
     uint64_t output = final_permutation(r << 32 | l);
     assert(output, 9648983453391827973ULL, "final_permutation");
+
+    // Test des_encrypt
+    uint64_t encrypted = des_encrypt(m, k);
+    assert(encrypted, 9648983453391827973ULL, "des_encrypt");
+
+    // Test des_decrypt
+    uint64_t decrypted = des_decrypt(encrypted, k);
+    assert(decrypted, m, "des_decrypt");
 }
 
 int main(int argc, char* argv[]) {
@@ -92,42 +100,34 @@ int main(int argc, char* argv[]) {
     // R: 2309737967
     // KEY: 1383827165325090801
 
-    // if (argc == 2 && strcmp(argv[1], "test") == 0) {
-    //     run_tests();
-    // } else {
-    //     des_encrypt("tests/input.txt", "tests/key.txt", "tests/output.txt");
-    // }
+    // DO NOT COMMENT OUT THIS BLOCK
+    if (argc == 2 && strcmp(argv[1], "test") == 0) {
+        run_tests();
+    } else {
+        uint64_t m = 81985529216486895ULL;
+        uint64_t k = 1383827165325090801ULL;
+        uint64_t e = des_encrypt(m, k);
+        pbin(e, 64);
+        pbin(des_decrypt(e, k), 64);
 
-    // if (strcmp(argv[1], "encrypt") == 0) {
+        // char c[] = "hello";
+        // uint32_t *d;
+        // d = pad(c,1);
+        // printf("\n");
+        // for (int i = 0; i < 16; i++) {
+        //     pbin(*(d+i), 32);
+        // }
 
-    // }
-
-
-    // else if (strcmp(argv[1], "decrypt") == 0) {
-
-    // }
-
-    // char c[] = "hello";
-    // uint32_t *d;
-    // d = pad(c,1);
-    // printf("\n");
-    // for (int i = 0; i < 16; i++) {
-    //     pbin(*(d+i), 32);
-    // }
-
-    // char e[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec dignissim ipsum. Proin lacinia, risus.";
-    // uint32_t *f;
-    // f = pad(e, 2);
-    // printf("\n");
-    // for (int i = 0; i < 32; i++) {
-    //     if (i == 16) {
-    //         printf("\n");
-    //         printf("\n");
-    //     }
-    //     pbin(*(f+i), 32);
-    // }
-
-    // des_encrypt("tests/input.txt", "tests/key.txt", "tests/output.txt");
-    
-    // sha_encrypt("message.txt", "output.txt");
+        // char e[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec dignissim ipsum. Proin lacinia, risus.";
+        // uint32_t *f;
+        // f = pad(e, 2);
+        // printf("\n");
+        // for (int i = 0; i < 32; i++) {
+        //     if (i == 16) {
+        //         printf("\n");
+        //         printf("\n");
+        //     }
+        //     pbin(*(f+i), 32);
+        // }
+    }
 }
