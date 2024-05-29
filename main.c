@@ -61,12 +61,13 @@ int main(int argc, char* argv[]) {
 
     // }
 
-    // char c[] = "hello";
-    // uint32_t *d;
-    // d = pad(c,1);
-    // printf("\n");
-    // pbin(*d, 32);
-    // pbin(*(d+1), 32);
+    char c[] = "hello";
+    uint32_t *d;
+    d = pad(c,1);
+    printf("\n");
+    for (int i = 0; i < 16; i++) {
+        pbin(*(d+i), 32);
+    }
 
     // des_encrypt("tests/input.txt", "tests/key.txt", "tests/output.txt");
     

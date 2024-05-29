@@ -56,9 +56,6 @@ uint32_t *pad(char *input, int chunkNum) {
     }
     bool onepadded = false;
     int blockNum = 0;
-    printf("%d", strlen(input) + (4-(strlen(input)%4)));
-    printf("\n");
-    printf("\n");
     for (int i = 0; i < strlen(input) + (4-(strlen(input)%4)); i++) {
         if (i/4 > blockNum) {
             blockNum++;
@@ -76,14 +73,12 @@ uint32_t *pad(char *input, int chunkNum) {
         else {
             output[blockNum] |= input[i];
         }
-        pbin(output[blockNum], 32);
-        printf("%d", i);
-        printf("\n");
     }
     blockNum = size-2;
+    uint64_t plainLength = strlen(input)*8;
+    output[blockNum] = (plainLength & 0xFFFFFFFF00000000) >> 32;
+    output[blockNum+1] = plainLength & 0x00000000FFFFFFFF; 
     uint32_t *ptr = output;
-    pbin(*ptr, 32);
-    pbin(*(ptr+1), 32);
     return ptr;
 }
 
