@@ -13,6 +13,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 
 uint32_t * rotate(uint32_t * input, int shift){
@@ -46,29 +47,33 @@ uint32_t *pad(char *input, int chunkNum) {
     for (int i = 0; i < size; i++) {
         output[i] = 0b0;
     }
+    bool onepadded = false;
     int blockNum = 0;
-    printf("%d", strlen(input));
+    printf("%d", strlen(input) + (4-(strlen(input)%4)));
+    printf("\n");
+    printf("\n");
     for (int i = 0; i < strlen(input) + (4-(strlen(input)%4)); i++) {
         if (i/4 > blockNum) {
             blockNum++;
         }
         output[blockNum] = output[blockNum] << 8;
-        if (i > strlen(input)) {
-            output[blockNum] |= 0b0;
+        if (i >= strlen(input)) {
+            if (!onepadded) {
+                onepadded = !onepadded;
+                output[blockNum] |= 128;
+            }
+            else {
+                output[blockNum] |= 0b0;
+            }
         }
         else {
             output[blockNum] |= input[i];
         }
+        pbin(output[blockNum], 32);
+        printf("%d", i);
+        printf("\n");
     }
-    uint32_t one_pad = 0b1;
-    uint32_t zero_pad = 0b0;
-    pbin(output[0],32);
-    pbin(output[1],32);
-    // pbin(output[blockNum], 32);
-    // output[blockNum] = output[blockNum] << 8;
-    // pbin(output[blockNum], 32);
-    // output[blockNum] |= one_pad;
-    // pbin(output[blockNum], 32);
+    blockNum = size-2;
     uint32_t *ptr = output;
     pbin(*ptr, 32);
     pbin(*(ptr+1), 32);
