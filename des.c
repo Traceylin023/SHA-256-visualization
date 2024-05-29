@@ -53,9 +53,6 @@ uint64_t * generate_key_schedule(uint64_t key) {
         keys[i] = 0;
         c = key_shift(c, i);
         d = key_shift(d, i);
-        printf("Round %d\n", i + 1);
-        pbin(c, 28);
-        pbin(d, 28);
         keys[i] = pc_2(c, d);
     }
 
@@ -70,7 +67,9 @@ void print_key_schedule(uint64_t *keys) {
 }
 
 uint64_t key_shift(uint64_t key, int round) {
-    key = key << SHIFTS[round] | key >> (28 - SHIFTS[round]);
+    for (int i = 0; i < SHIFTS[round]; i++) {
+        key = 0x0fffffff & (key << 1) | 1 & (key >> 27);
+    }
     return key;
 }
 
