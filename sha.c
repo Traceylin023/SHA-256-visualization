@@ -42,41 +42,36 @@ uint32_t * funct1(uint32_t * n0){
 
 uint32_t *pad(char *input, int chunkNum) {
     int size = chunkNum * 16;
-    uint32_t output[size];
+    uint32_t * output = (uint32_t*)malloc(size*32);
     for (int i = 0; i < size; i++) {
         output[i] = 0b0;
     }
-
-    /*  The above section is weird because I couldn't figure out
-        how to create a variable-length array but this works somehow */
-        
     int blockNum = 0;
     printf("%d", strlen(input));
     for (int i = 0; i < strlen(input) + (4-(strlen(input)%4)); i++) {
         if (i/4 > blockNum) {
             blockNum++;
         }
-        pbin(output[blockNum], 32);
         output[blockNum] = output[blockNum] << 8;
-        pbin(output[blockNum], 32);
         if (i > strlen(input)) {
             output[blockNum] |= 0b0;
         }
         else {
             output[blockNum] |= input[i];
         }
-        pbin(output[blockNum], 32);
-        printf("%d", blockNum);
-        printf("\n");
     }
     uint32_t one_pad = 0b1;
     uint32_t zero_pad = 0b0;
+    pbin(output[0],32);
+    pbin(output[1],32);
     // pbin(output[blockNum], 32);
     // output[blockNum] = output[blockNum] << 8;
     // pbin(output[blockNum], 32);
     // output[blockNum] |= one_pad;
     // pbin(output[blockNum], 32);
     uint32_t *ptr = output;
+    pbin(*ptr, 32);
+    pbin(*(ptr+1), 32);
     return ptr;
 }
 

@@ -51,10 +51,12 @@ int main(int argc, char* argv[]) {
 
     // }
 
-    char text[] = "hello";
-    uint32_t *dump = pad(*text,1);
-    pbin(dump[0], 32);
-    pbin(dump[1], 32);
+    char c[] = "hello";
+    uint32_t *d;
+    d = pad(c,1);
+    printf("\n");
+    pbin(*d, 32);
+    pbin(*(d+1), 32);
 
     // u_int64_t * split = split_l_r(initial_permutation(5216694956355245935ULL));
     // uint64_t l = split[0];
