@@ -34,7 +34,31 @@
  - Update pbin function to accept size to create a variable-length array
  - Fixed the length of padding loop to work properly
 
+### 2024-05-28
 
+- Add simple C/C++ continuous integration using Github Actions
+- Add test automation for already implemented steps of the DES algorithm
+- Add `make test` command to Makefile
+- Tried to fix the key schedule generation
+
+### 2024-05-29
+
+- Properly implemented the key schedule generation for all 16 rounds
+- Update the gh action to actually run `make test` and prettify the output
+- Fix the improperly shifted bits of c and d in the key schedule generation
+- Added tests for key schedule generation
+- Added code that implements the DES algorithm for all 16 rounds for a 64 bit block
+- Reordered the functions in the des.c file to be more organized
+- Added tests for the DES algorithm
+- Added a function to reverse the initial permutation (inverse)
+- Read through how the decryption for DES works
+- Implement DES decryption for a 64 bit block
+- Added tests for the DES decryption
+- Added working functions for DES encryption and decryption on entire files
+    - Runs encryption and write on every 64 bit block of a file
+    - Runs decryption and write on every 64 bit block of a file
+- Added padding to the end of the file to make sure the last block is 64 bits
+    - Properly encrypts and decrypts with padding
 
 ## EDMUND CHIN
  
