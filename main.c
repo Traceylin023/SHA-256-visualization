@@ -67,6 +67,22 @@ void run_tests() {
     assert(keys[13], 104744453596986, "generate_key_schedule 14");
     assert(keys[14], 210631860764426, "generate_key_schedule 15");
     assert(keys[15], 223465186400245, "generate_key_schedule 16");
+
+    // Test output of rounds 1-16
+    uint64_t l = split[0];
+    uint64_t r = split[1];
+    for (int i = 0; i < 16; i++) {
+        uint64_t temp = r;
+        r = l_r_xor(l, f(r, keys[i]));
+        l = temp;
+    }
+    assert(l, 1128411700, "round(16) l");
+    assert(r, 172808597, "round(16) r");
+    assert(r << 32 | l, 742207273711055412ULL, "round(16) rl");
+
+    // Test final_permutation
+    uint64_t output = final_permutation(r << 32 | l);
+    assert(output, 9648983453391827973ULL, "final_permutation");
 }
 
 int main(int argc, char* argv[]) {
