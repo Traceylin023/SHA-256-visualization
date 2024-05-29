@@ -51,12 +51,12 @@ int main(int argc, char* argv[]) {
 
     // }
 
-    char c[] = "hello";
-    uint32_t *d;
-    d = pad(c,1);
-    printf("\n");
-    pbin(*d, 32);
-    pbin(*(d+1), 32);
+    // char c[] = "hello";
+    // uint32_t *d;
+    // d = pad(c,1);
+    // printf("\n");
+    // pbin(*d, 32);
+    // pbin(*(d+1), 32);
 
     // u_int64_t * split = split_l_r(initial_permutation(5216694956355245935ULL));
     // uint64_t l = split[0];
@@ -64,4 +64,6 @@ int main(int argc, char* argv[]) {
     // pbin(l, 32);
     // pbin(r, 32);
     // pbin(l_r_xor(l, r), 32);
+    
+    sha_encrypt("message.txt", "output.txt");
 }

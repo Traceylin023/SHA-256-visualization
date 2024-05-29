@@ -90,9 +90,10 @@ uint32_t *pad(char *input, int chunkNum) {
 void sha_encrypt (char *input_filename, char *output_filename) {
     uint32_t initialArray[64];  //initialize array
     int f = open(input_filename, O_RDONLY);
-    FILE * fil = fopen(input_filename, O_RDONLY);
+    FILE * fil = fopen(input_filename, "r");
     fseek(fil, 0, SEEK_END);
     unsigned long fileLength = ftell(fil);
+    printf("size: %ld\n", fileLength);
     int chunks = (int)(trunc(fileLength / 512)+1);
 
     //initialize initial 8 hash values
@@ -174,18 +175,38 @@ void sha_encrypt (char *input_filename, char *output_filename) {
     constants[62] = strtol("bef9a3f7",ptr,16);
     constants[63] = strtol("c67178f2",ptr,16);
 
-    uint32_t arr[64];
+    // uint32_t * arr = (uint32_t*)malloc(256);
+    char * arr = malloc(256);
+    char array[256];
     for(int i = 0; i < chunks; i++){
-        for(int i = 0; i < 16; i++){ // read the chunck
-            int asdf = read(f, arr, 4); err(__LINE__);
-            // printf("arr[%d]: %ld\n",i, arr[i]);
-            // pbin(arr[i], 32);
-            // printf("[%d]\n",i);
-        }
+        // for(int i = 0; i < 16; i++){ // read the chunck
+        //     for(int j = 0; j < 4 ;j++){
+        //         int asdf = read(f, arr, 1); // err(__LINE__);
+        //     }
+        //     // printf("arr[%d]: %ld\n",i, arr[i]);
+        //     // pbin(arr[i], 32);
+        //     // printf("[%d]\n",i);
+        // }
+        read(f,arr,64);// err(__LINE__);
+        
+        // pbin(*arr, 64*32);  
+        // for(int a = 0; a < 256; a++){
+            // pbin(arr, 256);
+        // }
         for(int i = 0; i < 47; i++){ // calculate the rest of the array
-            arr[i+16] = arr[i] + *funct0(&arr[i+1]) + arr[i+9] + *funct1(&arr[i+14]);
+            // arr[i+16] = arr[i] + *funct0(&arr[i+1]) + arr[i+9] + *funct1(&arr[i+14]);
+            // funct
         }
     }
+    strcpy(array,arr);
+    for(int i = 0; i < 64; i++){
+        // printf("");
+        pbin(array[i], 8);
+    }
+    // printf(("input: %s\n"), arr);
+    // printf("%d\n", sizeof(arr));
+    // int output = open(output_filename, O_CREAT | O_WRONLY, 0644);
+    // int er = write(output, arr,64);// err(__LINE__);
 }
 
 void sha_decrypt (char *input_filename, char *output_filename) {
