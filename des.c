@@ -1,6 +1,8 @@
 #include "main.h"
 #include "des.h"
 
+/* HELPER FUNCTIONS */
+
 void pbin(uint64_t input, int size) {
     char count = 0;
     for (int i = size - 1; i >= 0; i--) {
@@ -11,20 +13,7 @@ void pbin(uint64_t input, int size) {
     printf("\n");
 }
 
-uint64_t initial_permutation(uint64_t input) {
-    uint64_t output = 0;
-    for (int i = 0; i < 64; i++) {
-        output |= ((input >> (64 - IP_ARR[i])) & 1) << (63 - i);
-    }
-    return output;
-}
-
-uint64_t * split_l_r(uint64_t input) {
-    uint64_t *output = malloc(2 * sizeof(uint64_t));
-    output[0] = input >> 32;
-    output[1] = input & 0xFFFFFFFF;
-    return output;
-}
+/* KEY SCHEDULE GENERATION */
 
 uint64_t pc_1_c(uint64_t key) {
     uint64_t output = 0;
@@ -41,6 +30,24 @@ uint64_t pc_1_d(uint64_t key) {
         output |= ((key >> (64 - PC_1_ARR[i + 28])) & 1) << (27 - i);
     }
     return output;
+}
+
+uint64_t key_shift(uint64_t key, int round) {
+    for (int i = 0; i < SHIFTS[round]; i++) {
+        key = 0x0fffffff & (key << 1) | 1 & (key >> 27);
+    }
+    return key;
+}
+
+uint64_t pc_2(uint64_t c, uint64_t d) {
+    uint64_t combined = c << 28 | d;
+    uint64_t key = 0;
+
+    for (int i = 0; i < 48; i++) {
+        key |= ((combined >> (56 - PC_2_ARR[i])) & 1) << (47 - i);
+    }
+
+    return key;
 }
 
 uint64_t * generate_key_schedule(uint64_t key) {
@@ -66,22 +73,21 @@ void print_key_schedule(uint64_t *keys) {
     }
 }
 
-uint64_t key_shift(uint64_t key, int round) {
-    for (int i = 0; i < SHIFTS[round]; i++) {
-        key = 0x0fffffff & (key << 1) | 1 & (key >> 27);
+/* DES ALGORITHM STEPS */
+
+uint64_t initial_permutation(uint64_t input) {
+    uint64_t output = 0;
+    for (int i = 0; i < 64; i++) {
+        output |= ((input >> (64 - IP_ARR[i])) & 1) << (63 - i);
     }
-    return key;
+    return output;
 }
 
-uint64_t pc_2(uint64_t c, uint64_t d) {
-    uint64_t combined = c << 28 | d;
-    uint64_t key = 0;
-
-    for (int i = 0; i < 48; i++) {
-        key |= ((combined >> (56 - PC_2_ARR[i])) & 1) << (47 - i);
-    }
-
-    return key;
+uint64_t * split_l_r(uint64_t input) {
+    uint64_t *output = malloc(2 * sizeof(uint64_t));
+    output[0] = input >> 32;
+    output[1] = input & 0xFFFFFFFF;
+    return output;
 }
 
 uint64_t e(uint64_t chunk){
@@ -134,6 +140,16 @@ uint64_t f(uint64_t chunk, uint64_t key) {
 uint64_t l_r_xor(uint64_t l, uint64_t r) {
     return l ^ r;
 }
+
+uint64_t final_permutation(uint64_t input) {
+    uint64_t output = 0;
+    for (int i = 0; i < 64; i++) {
+        output |= ((input >> (64 - IPI_ARR[i])) & 1) << (63 - i);
+    }
+    return output;
+}
+
+/* DES ENCRYPTION & DECRYPTION */
 
 void des_encrypt(char *input_filename, char *key, char *output_filename) {
 
