@@ -19,9 +19,9 @@ static int K_ARR[64] = {0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c2
 
 int err(int line);
 uint32_t *pad(char *input, int chunkNum);
-uint32_t * rotate(uint32_t * input, int shift);
-uint32_t * funct0(uint32_t * n0);
-uint32_t * funct1(uint32_t * n0);
+uint32_t rotate(uint32_t input, int shift);
+uint32_t funct0(uint32_t n0);
+uint32_t funct1(uint32_t n0);
 void sha_encrypt (char *input_filename, char *output_filename);
 void sha_decrypt (char *input_filename, char *output_filename);
 
