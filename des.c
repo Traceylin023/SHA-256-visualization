@@ -151,15 +151,16 @@ uint64_t final_permutation(uint64_t input) {
 
 /* DES ENCRYPTION & DECRYPTION */
 
-void des_encrypt(char *input_filename, char *key, char *output_filename) {
+uint64_t des_encrypt(uint64_t data, uint64_t key_64) {
 
-    uint64_t data = 81985529216486895ULL;
-    uint64_t l = 3422604543; // 19088743; // 3422604543
-    uint64_t r = 4037734570; // 2309737967; // 4037734570
-    uint64_t key_64 = 1383827165325090801ULL;
+    // uint64_t data = 81985529216486895ULL;
+    // uint64_t key_64 = 1383827165325090801ULL;
 
     uint64_t * split = split_l_r(initial_permutation(data));
     uint64_t * key_schedule = generate_key_schedule(key_64);
+
+    uint64_t l = split[0];
+    uint64_t r = split[1];
 
     for (int i = 0; i < 16; i++) {
         uint64_t temp = r;
@@ -167,10 +168,25 @@ void des_encrypt(char *input_filename, char *key, char *output_filename) {
         l = temp;
     }
 
-    uint64_t output = final_permutation(r << 32 | l);
-    pbin(output, 64);
+    return final_permutation(r << 32 | l);
 }
 
-void des_decrypt(char *input_filename, char *key_filename, char *output_filename) {
+uint64_t des_decrypt(uint64_t data, uint64_t key_64) {
 
+    // uint64_t data = 9648983453391827973UL;
+    // uint64_t key_64 = 1383827165325090801ULL;
+
+    uint64_t * split = split_l_r(initial_permutation(data));
+    uint64_t * key_schedule = generate_key_schedule(key_64);
+    
+    uint64_t l = split[0];
+    uint64_t r = split[1];
+
+    for (int i = 0; i < 16; i++) {
+        uint64_t temp = r;
+        r = l_r_xor(l, f(r, key_schedule[15 - i]));
+        l = temp;
+    }
+
+    return final_permutation(r << 32 | l);
 }

@@ -122,7 +122,7 @@ uint64_t f(uint64_t chunk, uint64_t key);
 uint64_t l_r_xor(uint64_t l, uint64_t r);
 uint64_t final_permutation(uint64_t input);
 
-void des_encrypt(char *input_filename, char *key, char *output_filename);
-void des_decrypt(char *input_filename, char *key_filename, char *output_filename);
+uint64_t des_encrypt(uint64_t data, uint64_t key_64);
+uint64_t des_decrypt(uint64_t data, uint64_t key_64);
 
 #endif
