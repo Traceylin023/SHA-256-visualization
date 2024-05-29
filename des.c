@@ -197,10 +197,25 @@ int des_encrypt_file(char * input_filename, char * output_filename, uint64_t key
     uint64_t buffer = 0;
     uint64_t encrypted = 0;
 
+    fseek(input_file, 0L, SEEK_END);
+    int remain = (ftell(input_file) % 8);
+    fseek(input_file, 0L, SEEK_SET);
+
     while (fread(&buffer, sizeof(uint64_t), 1, input_file) == 1) {
         encrypted = des_encrypt(buffer, key_64);
         fwrite(&encrypted, sizeof(uint64_t), 1, output_file);
     }
+
+    uint64_t mask;
+    int remain_bytes = 8 - remain;
+    for(mask = 0x00; remain_bytes; remain_bytes--) {
+        mask = mask << 8 | 0xFF;
+    }
+
+    fread(&buffer, sizeof(uint64_t), 1, input_file);
+    buffer = mask | buffer << (8 * (8 - remain));
+    encrypted = des_encrypt(buffer, key_64);
+    fwrite(&encrypted, sizeof(uint64_t), 1, output_file);
 
     fclose(input_file);
     fclose(output_file);
