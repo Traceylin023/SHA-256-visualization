@@ -110,8 +110,8 @@ int main(int argc, char* argv[]) {
         // pbin(e, 64);
         // pbin(des_decrypt(e, k), 64);
 
-        des_encrypt_file("test_files/input_enc.txt", "test_files/output_enc.txt", k);
-        des_decrypt_file("test_files/output_enc.txt", "test_files/output_dec.txt", k);
+        des_encrypt_file("test_files/input.jpeg", "test_files/output.enc", k);
+        des_decrypt_file("test_files/output.enc", "test_files/output_dec.jpeg", k);
 
         // char c[] = "hello";
         // uint32_t *d;

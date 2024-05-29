@@ -235,14 +235,22 @@ int des_decrypt_file(char * input_filename, char * output_filename, uint64_t key
     uint64_t buffer = 0;
     uint64_t decrypted = 0;
 
+    fseek(input_file, 0L, SEEK_END);
+    int size = ftell(input_file) / 8;
+    fseek(input_file, 0L, SEEK_SET);
+
+    int counter = 0;
     while (fread(&buffer, sizeof(uint64_t), 1, input_file) == 1) {
         decrypted = des_decrypt(buffer, key_64);
         int count = 0;
-        while ((decrypted & 0xFF) == 255) {
-            decrypted = decrypted >> 8;
-            count++;
+        if (counter == size - 1) {
+            while ((decrypted & 0xFF) == 255) {
+                decrypted = decrypted >> 8;
+                count++;
+            }
         }
         fwrite(&decrypted, 8 - count, 1, output_file);
+        counter++;
     }
 
     fclose(input_file);
