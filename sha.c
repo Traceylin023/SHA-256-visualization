@@ -78,6 +78,8 @@ uint32_t *pad(char *input, int chunkNum) {
 
 void sha_encrypt(char *input_filename, char *output_filename) {
 
+    /* READ FILE INTO ARRAY */
+
     // Get num_chunks = (length of the file / 512) + 1
     // Create an array of num_chunks long
     // Read file char by char into buffer
@@ -103,6 +105,21 @@ void sha_encrypt(char *input_filename, char *output_filename) {
         array[counter / 4] |= buffer << 24;
         counter++;
     }
+
+
+    /* PREPROCESSING */
+
+    uint32_t H[8] = {0,0,0,0,0,0,0,0};
+    for (int i = 0; i < 8; i++) H[i] = HASH_ARR[i];
+
+    uint32_t a, b, c, d, e, f, g, h;
+
+    uint32_t t1 = 0;
+    uint32_t t2 = 0;
+
+    // TODO: Pad the array
+
+    /* HASH COMPUTATION */
 
     for (int i = 0; i < num_chunks * 16; i++) {
         printf("array[%d]: ", i);
