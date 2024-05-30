@@ -95,34 +95,26 @@ void sha_encrypt (char *input_filename, char *output_filename) {
     // char * arr = malloc(256);
     char array[256];
     for(int i = 0; i < chunks; i++){
-        // for(int i = 0; i < 16; i++){ // read the chonckkk
-        //     for(int j = 0; j < 4 ;j++){
-        //         int asdf = read(f, arr, 1); // err(__LINE__);
-        //     }
-        //     // printf("arr[%d]: %ld\n",i, arr[i]);
-        //     // pbin(arr[i], 32);
-        //     // printf("[%d]\n",i);
+        // read(f,arr,64);// err(__LINE__); //read the chunk
+        // strcpy(array,arr);
+        // for(int a = 0; a < 64; a++){
+        //     pbin(array[a], 8);
         // }
-        read(f,arr,64);// err(__LINE__);
-        
-        // pbin(*arr, 64*32);  
-        // for(int a = 0; a < 256; a++){
-            // pbin(arr, 256);
-        // }
+
+        read(f, arr, 256);
+        // pbin(*arr, 64 * 32);
         for(int i = 0; i < 47; i++){ // calculate the rest of the array
             // arr[i+16] = arr[i] + *funct0(&arr[i+1]) + arr[i+9] + *funct1(&arr[i+14]);
-            // funct
+            // funct1(arr[i]);
+            
         }
     }
-    strcpy(array,arr);
-    for(int i = 0; i < 64; i++){
-        // printf("");
-        pbin(array[i], 8);
-    }
-    // printf(("input: %s\n"), arr);
-    // printf("%d\n", sizeof(arr));
-    // int output = open(output_filename, O_CREAT | O_WRONLY, 0644);
-    // int er = write(output, arr,64);// err(__LINE__);
+    uint32_t var = 1;
+    pbin(var,32);
+    uint32_t v = rotate(var, 5);
+    pbin(v, 32);
+    int output = open(output_filename, O_CREAT | O_WRONLY, 0644);
+    int er = write(output, arr,64);// err(__LINE__);
 }
 
 void sha_decrypt (char *input_filename, char *output_filename) {
