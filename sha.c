@@ -76,27 +76,46 @@ uint32_t *pad(char *input, int chunkNum) {
     return ptr;
 }
 
-void sha_encrypt (char *input_filename, char *output_filename) {
-    uint32_t initialArray[64];  //initialize array
-    int f = open(input_filename, O_RDONLY);
-    FILE * fil = fopen(input_filename, "r"); //err(__LINE__);
-    fseek(fil, 0, SEEK_END);
-    unsigned long fileLength = ftell(fil);
-    printf("size: %ld\n", fileLength);
-    int chunks = (int)(trunc(fileLength / 512)+1);
-    printf("chunks: %d\n", chunks);
-    fseek(fil, 0, 0);
-    uint32_t * arr = (uint32_t*)calloc(256,1);
-    // char * arr = malloc(256);
-    char array[256];
-    for(int i = 0; i < chunks; i++){
-        read(f, arr, 256);
-        // pbin(arr, 64 * 32);
-        for(int i = 0; i < 47; i++){ // calculate the rest of the array
-            arr[i+16] = (arr[i] + funct0(arr[i+1]) + arr[i+9] + funct1(arr[i+14])) %  (u_int32_t)pow(2,32);
-        }
+void sha_encrypt(char *input_filename, char *output_filename) {
 
+    // Get num_chunks = (length of the file / 512) + 1
+    // Create an array of num_chunks long
+    // Read file char by char into buffer
+    // For each char, write to the count / 4th index of the array
+    // Shift the array[count/4] by 8, then OR the buffer into the array[count/4]
+
+    FILE * file = fopen(input_filename, "r");
+
+    fseek(file, 0, SEEK_END);
+    uint64_t fileLength = ftell(file);
+    int num_chunks = (int) (trunc(fileLength / 512) + 1);
+    fseek(file, 0, SEEK_SET);
+
+    printf("size: %ld\n", fileLength);
+    printf("num_chunks: %d\n", num_chunks);
+
+    uint32_t *array = malloc(num_chunks * 16 * sizeof(uint32_t));
+    char buffer = 0;
+    int counter = 0;
+
+    while (fread(&buffer, sizeof(char), 1, file) == 1) {
+        array[counter / 4] = array[counter / 4] << 8; // >>
+        array[counter / 4] |= buffer; // << 24
+        counter++;
     }
+
+    for (int i = 0; i < num_chunks * 16; i++) {
+        printf("array[%d]: ", i);
+        pbin(array[i], 32);
+    }
+
+    // for(int i = 0; i < chunks; i++) {
+    //     fread(array, 256, 1, file);
+    //     pbin(array, 256);
+    //     // for(int i = 0; i < 47; i++){ // calculate the rest of the array
+    //     //     arr[i+16] = (arr[i] + funct0(arr[i+1]) + arr[i+9] + funct1(arr[i+14])) % (u_int32_t) pow(2,32);
+    //     // }
+    // }
     // for(int i = 0; i < 64; i++){
     //     printf("line [%d]: ",i);
     //     pbin(arr[i], 32);
@@ -108,8 +127,8 @@ void sha_encrypt (char *input_filename, char *output_filename) {
     // pbin(var,32);
     // uint32_t v = rotate(var, 1);
     // pbin(v, 32);
-    // fread(arr,4,64,fil); //err(__LINE__);
-    // fgets(arr,256,fil); err(__LINE__);
+    // fread(arr,4,64,file); //err(__LINE__);
+    // fgets(arr,256,file); err(__LINE__);
     // printf("-----------------------------------------------------\n");
     // uint32_t a0 = arr[10];   
     // uint32_t r0  = rotate(a0, 7);
@@ -127,8 +146,8 @@ void sha_encrypt (char *input_filename, char *output_filename) {
     // uint32_t z = ((r0 ^ r1 )^ r2);
     // printf("sigma:     ");
     // pbin(z,32);
-    int output = open(output_filename, O_CREAT | O_WRONLY, 0644);
-    int er = write(output, arr,64);// err(__LINE__);
+    int output_file = open(output_filename, O_CREAT | O_WRONLY, 0644);
+    int er = write(output_file, array, 64);// err(__LINE__);
 }
 
 void sha_decrypt (char *input_filename, char *output_filename) {
