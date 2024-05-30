@@ -14,6 +14,7 @@
 #include <dirent.h>
 #include <stdint.h>
 #include <stdbool.h>
+// #include "message.txt"
 
 
 int err(int line){
@@ -24,10 +25,6 @@ int err(int line){
 }
 
 uint32_t rotate(uint32_t input, int shift){
-    // uint32_t a = input >> shift;
-    // uint32_t b = input << (32 - shift);
-    // uint32_t c = a | b ;
-    // return &c;
     return input >> shift | input << (32-shift);
 }   
 
@@ -35,18 +32,14 @@ uint32_t funct0(uint32_t n0){
     uint32_t a = rotate(n0, 7);
     uint32_t b = rotate(n0, 18);
     uint32_t c = n0 >> 3;
-    uint32_t acc0 = a ^ b;
-    uint32_t acc1 = acc0 ^ c;
-    return &acc1;
+    return ((a ^ b) ^ c);
 }
 
 uint32_t funct1(uint32_t n0){
     uint32_t a = rotate(n0, 17);
     uint32_t b = rotate(n0, 9);
     uint32_t c = n0 >> 10;
-    uint32_t acc0 = a ^ b;
-    uint32_t acc1 = acc0 ^ c;
-    return &acc1;
+    return ((a ^ b) ^ c);
 }
 
 uint32_t *pad(char *input, int chunkNum) {
@@ -86,47 +79,54 @@ uint32_t *pad(char *input, int chunkNum) {
 void sha_encrypt (char *input_filename, char *output_filename) {
     uint32_t initialArray[64];  //initialize array
     int f = open(input_filename, O_RDONLY);
-    FILE * fil = fopen(input_filename, "r");
+    FILE * fil = fopen(input_filename, "r"); //err(__LINE__);
     fseek(fil, 0, SEEK_END);
     unsigned long fileLength = ftell(fil);
     printf("size: %ld\n", fileLength);
     int chunks = (int)(trunc(fileLength / 512)+1);
-
-    uint32_t * arr = (uint32_t*)malloc(256);
+    printf("chunks: %d\n", chunks);
+    fseek(fil, 0, 0);
+    uint32_t * arr = (uint32_t*)calloc(256,1);
     // char * arr = malloc(256);
     char array[256];
     for(int i = 0; i < chunks; i++){
-        // read(f,arr,64);// err(__LINE__); //read the chunk
-        // strcpy(array,arr);
-        // for(int a = 0; a < 64; a++){
-        //     pbin(array[a], 8);
-        // }
-
         read(f, arr, 256);
-        // pbin(*arr, 64 * 32);
+        // pbin(arr, 64 * 32);
         for(int i = 0; i < 47; i++){ // calculate the rest of the array
-            // arr[i+16] = arr[i] + *funct0(&arr[i+1]) + arr[i+9] + *funct1(&arr[i+14]);
-            // funct1(arr[i]);
-            
+            arr[i+16] = (arr[i] + funct0(arr[i+1]) + arr[i+9] + funct1(arr[i+14])) %  (u_int32_t)pow(2,32);
         }
+
     }
-    uint32_t var = 1;
-    pbin(var,32);
-    uint32_t v = rotate(var, 1);
-    pbin(v, 32);
-    
-    printf("-----------------------------------------------------");
-    uint32_t a0 = arr[1];
-    uint32_t r0  = rotate(a0, 7);
-    uint32_t r1  = rotate(a0, 18);
-    uint32_t r2  = a0 >> 3;
-    pbin(a0,32);
-    pbin(r0,32);
-    pbin(r1,32);
-    pbin(r2,32);
+    // for(int i = 0; i < 64; i++){
+    //     printf("line [%d]: ",i);
+    //     pbin(arr[i], 32);
+    // }
 
 
-
+    //funny testing :D
+    // uint32_t var = 1;
+    // pbin(var,32);
+    // uint32_t v = rotate(var, 1);
+    // pbin(v, 32);
+    // fread(arr,4,64,fil); //err(__LINE__);
+    // fgets(arr,256,fil); err(__LINE__);
+    // printf("-----------------------------------------------------\n");
+    // uint32_t a0 = arr[10];   
+    // uint32_t r0  = rotate(a0, 7);
+    // uint32_t r1  = rotate(a0, 18);
+    // uint32_t r2  = a0 >> 3;
+    // // printf("original:  ");
+    // pbin(arr[10],32);
+    // // pbin(arr[1],32);
+    // printf("rotate 7:  ");
+    // pbin(r0,32);
+    // printf("rotate 18: ");
+    // pbin(r1,32);
+    // printf("shift 3:   ");
+    // pbin(r2,32);
+    // uint32_t z = ((r0 ^ r1 )^ r2);
+    // printf("sigma:     ");
+    // pbin(z,32);
     int output = open(output_filename, O_CREAT | O_WRONLY, 0644);
     int er = write(output, arr,64);// err(__LINE__);
 }
