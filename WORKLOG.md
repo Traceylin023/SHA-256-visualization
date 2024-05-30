@@ -92,6 +92,16 @@
  - Continued research
  - Changed padding function to use an array of 32-bit integers
  - Finished appending plaintext into 32-bit ints
+### 2024-05-25
+ - Fixed pointers and appended plaintext into 32-bit ints for n chunks instead of just one
+ - Padding function appends the bit of 1
+### 2024-05-28
+ - Fixed padding for appending the plaintext
+ - Added 0 padding for 448mod512 bits
+ - Added plaintext length at the end of message as a 64-bit integer
+### 2024-05-29
+ - Began rotation encryption
+ - Put constant arrays in sha.h rather than sha.c, turned hashes into binary and left the rest as hexes
 
 
 
