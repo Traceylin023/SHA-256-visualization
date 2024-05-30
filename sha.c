@@ -127,19 +127,21 @@ void sha_encrypt(char *input_filename, char *output_filename) {
             pbin(*(paddedData+i), 32);
         }
 
-    
-
-    // for(int i = 0; i < chunks; i++) {
+    uint32_t chunk = malloc(256);
+    for(int i = 0; i < chunks; i++) {
     //     fread(array, 256, 1, file);
     //     pbin(array, 256);
-    //     // for(int i = 0; i < 47; i++){ // calculate the rest of the array
-    //     //     arr[i+16] = (arr[i] + funct0(arr[i+1]) + arr[i+9] + funct1(arr[i+14])) % (u_int32_t) pow(2,32);
-    //     // }
+        for(int j = 0; j < 16 ;j++){ //pull 16 lines of 4 bytes 
+            chunk[j] = *(paddedData+16*i + j]);
+        }
+        for(int k = 0; k < 47; k++){ // calculate the rest of the array
+            arr[k+16] = (arr[k] + funct0(arr[k+1]) + arr[k+9] + funct1(arr[k+14]));
+        }
     // }
     // for(int i = 0; i < 64; i++){
     //     printf("line [%d]: ",i);
     //     pbin(arr[i], 32);
-    // }
+    }
 
 
     //funny testing :D
