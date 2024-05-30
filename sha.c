@@ -99,8 +99,8 @@ void sha_encrypt(char *input_filename, char *output_filename) {
     int counter = 0;
 
     while (fread(&buffer, sizeof(char), 1, file) == 1) {
-        array[counter / 4] = array[counter / 4] << 8; // >>
-        array[counter / 4] |= buffer; // << 24
+        array[counter / 4] = array[counter / 4] >> 8;
+        array[counter / 4] |= buffer << 24;
         counter++;
     }
 
