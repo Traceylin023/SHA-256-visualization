@@ -114,6 +114,19 @@ void sha_encrypt (char *input_filename, char *output_filename) {
     pbin(var,32);
     uint32_t v = rotate(var, 1);
     pbin(v, 32);
+    
+    printf("-----------------------------------------------------");
+    uint32_t a0 = arr[1];
+    uint32_t r0  = rotate(a0, 7);
+    uint32_t r1  = rotate(a0, 18);
+    uint32_t r2  = a0 >> 3;
+    pbin(a0,32);
+    pbin(r0,32);
+    pbin(r1,32);
+    pbin(r2,32);
+
+
+
     int output = open(output_filename, O_CREAT | O_WRONLY, 0644);
     int er = write(output, arr,64);// err(__LINE__);
 }
