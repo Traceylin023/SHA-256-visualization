@@ -126,6 +126,8 @@ void sha_encrypt(char *input_filename, char *output_filename) {
         pbin(array[i], 32);
     }
 
+    
+
     // for(int i = 0; i < chunks; i++) {
     //     fread(array, 256, 1, file);
     //     pbin(array, 256);
