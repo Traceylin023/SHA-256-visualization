@@ -96,16 +96,13 @@ void sha_encrypt(char *input_filename, char *output_filename) {
     printf("size: %ld\n", fileLength);
     printf("num_chunks: %d\n", num_chunks);
 
-    uint32_t *array = malloc(num_chunks * 16 * sizeof(uint32_t));
+    char *array = malloc(fileLength * sizeof(char));
     char buffer = 0;
     int counter = 0;
 
     while (fread(&buffer, sizeof(char), 1, file) == 1) {
-        array[counter / 4] = array[counter / 4] >> 8;
-        array[counter / 4] |= buffer << 24;
-        counter++;
+        array[counter++] = buffer;
     }
-
 
     /* PREPROCESSING */
 
