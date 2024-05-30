@@ -132,5 +132,7 @@ int main(int argc, char* argv[]) {
         //     }
         //     pbin(*(f+i), 32);
         // }
+
+        sha_encrypt("message.txt","output.txt");
     }
 }

@@ -24,10 +24,11 @@ int err(int line){
 }
 
 uint32_t rotate(uint32_t input, int shift){
-    uint32_t a = input >> shift;
-    uint32_t b = input << (32 - shift);
-    uint32_t c = a | b ;
-    return &c;
+    // uint32_t a = input >> shift;
+    // uint32_t b = input << (32 - shift);
+    // uint32_t c = a | b ;
+    // return &c;
+    return input >> shift | input << (32-shift);
 }   
 
 uint32_t funct0(uint32_t n0){
@@ -111,7 +112,7 @@ void sha_encrypt (char *input_filename, char *output_filename) {
     }
     uint32_t var = 1;
     pbin(var,32);
-    uint32_t v = rotate(var, 5);
+    uint32_t v = rotate(var, 1);
     pbin(v, 32);
     int output = open(output_filename, O_CREAT | O_WRONLY, 0644);
     int er = write(output, arr,64);// err(__LINE__);
