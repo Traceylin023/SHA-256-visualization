@@ -90,7 +90,7 @@ void sha_encrypt(char *input_filename, char *output_filename) {
 
     fseek(file, 0, SEEK_END);
     uint64_t fileLength = ftell(file);
-    int num_chunks = (int) (trunc(fileLength / 512) + 1);
+    int num_chunks = (int) (trunc(fileLength / 64) + 1);
     fseek(file, 0, SEEK_SET);
 
     printf("size: %ld\n", fileLength);
@@ -115,13 +115,17 @@ void sha_encrypt(char *input_filename, char *output_filename) {
     uint32_t t2 = 0;
 
     // TODO: Pad the array
-
+    uint32_t *paddedData;
+    paddedData = pad(array,num_chunks);
     /* HASH COMPUTATION */
 
-    for (int i = 0; i < num_chunks * 16; i++) {
-        printf("array[%d]: ", i);
-        pbin(array[i], 32);
-    }
+       for (int i = 0; i < 32; i++) {
+            if (i == 16) {
+                printf("\n");
+                printf("\n");
+            }
+            pbin(*(paddedData+i), 32);
+        }
 
     
 
