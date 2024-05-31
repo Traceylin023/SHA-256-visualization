@@ -31,3 +31,5 @@ test: main.out
 	@./main.out test
 clean:
 	rm *.o main.out
+format:
+	clang-format -i -style=google *.c *.h
