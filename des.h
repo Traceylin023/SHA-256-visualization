@@ -128,4 +128,7 @@ uint64_t des_decrypt(uint64_t data, uint64_t key_64);
 int des_encrypt_file(char *input_filename, char *output_filename, uint64_t key_64);
 int des_decrypt_file(char *input_filename, char *output_filename, uint64_t key_64);
 
+int triple_des_encrypt_file(char *input_filename, char *output_filename, uint64_t key1, uint64_t key2, uint64_t key3);
+int triple_des_decrypt_file(char *input_filename, char *output_filename, uint64_t key1, uint64_t key2, uint64_t key3);
+
 #endif

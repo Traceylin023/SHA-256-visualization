@@ -258,3 +258,17 @@ int des_decrypt_file(char * input_filename, char * output_filename, uint64_t key
 
     return 0;
 }
+
+int triple_des_encrypt_file(char * input_filename, char * output_filename, uint64_t key1, uint64_t key2, uint64_t key3) {
+    des_encrypt_file(input_filename, ".tmp/key1.enc", key1);
+    des_decrypt_file(".tmp/key1.enc", ".tmp/key2.dec", key2);
+    des_encrypt_file(".tmp/key2.dec", output_filename, key3);
+    return 0;
+}
+
+int triple_des_decrypt_file(char * input_filename, char * output_filename, uint64_t key1, uint64_t key2, uint64_t key3) {
+    des_decrypt_file(input_filename, ".tmp/key3.dec", key3);
+    des_encrypt_file(".tmp/key3.dec", ".tmp/key2.enc", key2);
+    des_decrypt_file(".tmp/key2.enc", output_filename, key1);
+    return 0;
+}
