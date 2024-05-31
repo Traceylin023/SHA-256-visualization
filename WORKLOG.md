@@ -57,8 +57,17 @@
 - Added working functions for DES encryption and decryption on entire files
     - Runs encryption and write on every 64 bit block of a file
     - Runs decryption and write on every 64 bit block of a file
-- Added padding to the end of the file to make sure the last block is 64 bits
+    - Added padding to the end of the file to make sure the last block is 64 bits
     - Properly encrypts and decrypts with padding
+
+### 2024-05-30
+
+- Looking into SHA-256 encryption to help others
+- Fix how a file is read into `n` length char array in sha.c
+- Add triple DES encryption and decryption for files
+- Cleaned and updated main and makefile to include triple DES support
+- Read about DES modes
+- Looking into multi-threading for DES
 
 ## EDMUND CHIN
  
