@@ -1,6 +1,20 @@
 #ifndef SHA_H
 #define SHA_H
 
+#include <dirent.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <math.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <time.h>
+#include <unistd.h>
+
 // FIPS 180-4 Constants
 
 static int HASH_ARR[8] = {1779033703, 3144134277, 1013904242, 2773480762,

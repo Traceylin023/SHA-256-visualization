@@ -1,19 +1,5 @@
 #include "sha.h"
 
-#include <dirent.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <math.h>
-#include <stdbool.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <time.h>
-#include <unistd.h>
-
 #include "des.h"
 #include "main.h"
 // #include "message.txt"
@@ -125,47 +111,26 @@ void sha_encrypt(char *input_filename, char *output_filename) {
     pbin(*(paddedData + i), 32);
   }
 
-  uint32_t chunk = malloc(256);
-  for (int i = 0; i < chunks; i++) {
+  uint32_t * chunk = malloc(256);
+  for (int i = 0; i < num_chunks; i++) {
     //     fread(array, 256, 1, file);
     //     pbin(array, 256);
     for (int j = 0; j < 16; j++) {  // pull 16 lines of 4 bytes
-            chunk[j] = *(paddedData+16*i + j]);
+            chunk[j] = paddedData[16*i + j];
     }
-    for (int k = 0; k < 47; k++) {  // calculate the rest of the array
-      arr[k + 16] =
-          (arr[k] + funct0(arr[k + 1]) + arr[k + 9] + funct1(arr[k + 14]));
+    for (int k = 0; k < 48; k++) {  // calculate the rest of the array
+      chunk[k + 16] =(chunk[k] + funct0(chunk[k + 1]) + chunk[k + 9] + funct1(chunk[k + 14]));
+    }
+    printf("calculated array:\n");
+    for(int j = 0; j < 64; j++){
+      printf("[%d]: ",j);
+      pbin(chunk[j], 32);
     }
     // }
     // for(int i = 0; i < 64; i++){
     //     printf("line [%d]: ",i);
     //     pbin(arr[i], 32);
   }
-
-  // funny testing :D
-  //  uint32_t var = 1;
-  //  pbin(var,32);
-  //  uint32_t v = rotate(var, 1);
-  //  pbin(v, 32);
-  //  fread(arr,4,64,file); //err(__LINE__);
-  //  fgets(arr,256,file); err(__LINE__);
-  //  printf("-----------------------------------------------------\n");
-  //  uint32_t a0 = arr[10];
-  //  uint32_t r0  = rotate(a0, 7);
-  //  uint32_t r1  = rotate(a0, 18);
-  //  uint32_t r2  = a0 >> 3;
-  //  // printf("original:  ");
-  //  pbin(arr[10],32);
-  //  // pbin(arr[1],32);
-  //  printf("rotate 7:  ");
-  //  pbin(r0,32);
-  //  printf("rotate 18: ");
-  //  pbin(r1,32);
-  //  printf("shift 3:   ");
-  //  pbin(r2,32);
-  //  uint32_t z = ((r0 ^ r1 )^ r2);
-  //  printf("sigma:     ");
-  //  pbin(z,32);
   int output_file = open(output_filename, O_CREAT | O_WRONLY, 0644);
   int er = write(output_file, array, 64);  // err(__LINE__);
 }

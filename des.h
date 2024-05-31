@@ -1,6 +1,13 @@
 #ifndef DES_H
 #define DES_H
 
+#include <errno.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
 /* All static global arrays are taken from FIPS PUB 46-3,
    representing various bit transformations in the DES algorithm */
 
