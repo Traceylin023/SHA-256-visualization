@@ -5,9 +5,16 @@ usage:
 	@echo
 	@echo "USAGE"
 	@echo "=========="
+	@echo "compile: compiles the program"
+	@echo "run: 	runs main() of the program"
+	@echo "encrypt: encrypts file listed using DES"
+	@echo "decrypt: decrypts file listed using DES"
 	@echo
 	@echo "FLAGS"
 	@echo "=========="
+	@echo "input: 	input file name"
+	@echo "output:  output file name"
+	@echo "triple:  use triple DES algorithm, <true | false>"
 main.o: main.c main.h des.h sha.h
 	@gcc -c main.c -w
 des.o: des.c main.h des.h
@@ -15,11 +22,11 @@ des.o: des.c main.h des.h
 sha.o: sha.c main.h sha.h
 	@gcc -c sha.c -w
 run: main.out
-	@./main.out $(ARGS)
+	@./main.out
 encrypt: main.out
-	@./main.out encrypt ${ARGS}
+	@./main.out encrypt ${input} ${output} ${triple}
 decrypt: main.out
-	@./main.out decrypt ${ARGS}
+	@./main.out decrypt ${input} ${output} ${triple}
 test: main.out
 	@./main.out test
 clean:
