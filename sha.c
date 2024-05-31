@@ -24,7 +24,7 @@ uint32_t funct0(uint32_t n0) {
 
 uint32_t funct1(uint32_t n0) {
   uint32_t a = rotate(n0, 17);
-  uint32_t b = rotate(n0, 9);
+  uint32_t b = rotate(n0, 19);
   uint32_t c = n0 >> 10;
   return ((a ^ b) ^ c);
 }
@@ -75,6 +75,7 @@ void sha_encrypt(char *input_filename, char *output_filename) {
   fseek(file, 0, SEEK_END);
   uint64_t fileLength = ftell(file);
   int num_chunks = (int)(trunc(fileLength / 64) + 1);
+  printf("%d", num_chunks);
   fseek(file, 0, SEEK_SET);
 
   printf("size: %ld\n", fileLength);
@@ -112,19 +113,21 @@ void sha_encrypt(char *input_filename, char *output_filename) {
   }
 
   uint32_t * chunk = malloc(256);
+  printf("\n");
   for (int i = 0; i < num_chunks; i++) {
     //     fread(array, 256, 1, file);
     //     pbin(array, 256);
+    int curr = i*16;
     for (int j = 0; j < 16; j++) {  // pull 16 lines of 4 bytes
-            chunk[j] = paddedData[16*i + j];
+        chunk[j] = paddedData[curr + j];
     }
     for (int k = 0; k < 48; k++) {  // calculate the rest of the array
-      chunk[k + 16] =(chunk[k] + funct0(chunk[k + 1]) + chunk[k + 9] + funct1(chunk[k + 14]));
+        chunk[k + 16] =(chunk[k] + funct0(chunk[k + 1]) + chunk[k + 9] + funct1(chunk[k + 14]));    
     }
     printf("calculated array:\n");
     for(int j = 0; j < 64; j++){
       printf("[%d]: ",j);
-      pbin(chunk[j], 32);
+      pbin(*(chunk+j), 32);
     }
     // }
     // for(int i = 0; i < 64; i++){
