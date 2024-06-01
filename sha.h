@@ -38,6 +38,8 @@ uint32_t *pad(char *input, int chunkNum);
 uint32_t rotate(uint32_t input, int shift);
 uint32_t funct0(uint32_t n0);
 uint32_t funct1(uint32_t n0);
+uint32_t sum0(uint32_t n0);
+uint32_t sum1(uint32_t n0)
 void sha_encrypt(char *input_filename, char *output_filename);
 void sha_decrypt(char *input_filename, char *output_filename);
 

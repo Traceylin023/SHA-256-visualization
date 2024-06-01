@@ -29,6 +29,22 @@ uint32_t funct1(uint32_t n0) {
   return ((a ^ b) ^ c);
 }
 
+uint32_t sum0(uint32_t n0){
+  return (rotate(n0, 2) ^ rotate(n0,13) ^ rotate(n0,22));
+}
+
+uint32_t sum1(uint32_t n0){
+  return (rotate(n0, 6) ^ rotate(n0,11) ^ rotate(n0,25));
+}
+
+uint32_t majority(uint32_t n0, uint32_t n1, uint32_t n2){
+  return ((n0 & n1) ^ (n0 & n2) ^ (n1 & n2));
+}
+
+uint32_t choice(uint32_t n0, uint32_t n1, uint32_t n2){
+  return ((n0 & n1) ^ ((~n0) & n2));
+}
+
 uint32_t *pad(char *input, int chunkNum) {
   int size = chunkNum * 16;
   uint32_t *output = (uint32_t *)malloc(size * 32);
@@ -61,6 +77,7 @@ uint32_t *pad(char *input, int chunkNum) {
   return ptr;
 }
 
+
 void sha_encrypt(char *input_filename, char *output_filename) {
   /* READ FILE INTO ARRAY */
 
@@ -81,6 +98,7 @@ void sha_encrypt(char *input_filename, char *output_filename) {
   printf("size: %ld\n", fileLength);
   printf("num_chunks: %d\n", num_chunks);
 
+  uint32_t * hashes = malloc(32);
   char *array = malloc(fileLength * sizeof(char));
   char buffer = 0;
   int counter = 0;
@@ -88,7 +106,8 @@ void sha_encrypt(char *input_filename, char *output_filename) {
   while (fread(&buffer, sizeof(char), 1, file) == 1) {
     array[counter++] = buffer;
   }
-
+  uint32_t temp1 = 0;
+  uint32_t temp2 = 0;
   /* PREPROCESSING */
 
   uint32_t H[8] = {0, 0, 0, 0, 0, 0, 0, 0};
@@ -124,18 +143,53 @@ void sha_encrypt(char *input_filename, char *output_filename) {
     for (int k = 0; k < 48; k++) {  // calculate the rest of the array
         chunk[k + 16] =(chunk[k] + funct0(chunk[k + 1]) + chunk[k + 9] + funct1(chunk[k + 14]));    
     }
-    printf("calculated array:\n");
-    for(int j = 0; j < 64; j++){
-      printf("[%d]: ",j);
-      pbin(*(chunk+j), 32);
-    }
+    // printf("calculated array:\n");
+    // for(int j = 0; j < 64; j++){
+    //   printf("[%d]: ",j);
+    //   pbin(*(chunk+j), 32);
     // }
-    // for(int i = 0; i < 64; i++){
-    //     printf("line [%d]: ",i);
-    //     pbin(arr[i], 32);
+    if(i == 0){
+      a = HASH_ARR[0];
+      b = HASH_ARR[1];
+      c = HASH_ARR[2];
+      d = HASH_ARR[3];
+      e = HASH_ARR[4];
+      f = HASH_ARR[5];
+      g = HASH_ARR[6];
+      h = HASH_ARR[7];
+    } else{
+      a = hashes[0];
+      b = hashes[1];
+      c = hashes[2];
+      d = hashes[3];
+      e = hashes[4];
+      f = hashes[5];
+      g = hashes[6];
+      h = hashes[7];
+    }
+    for(int a = 0; a < 64; a++){
+      temp1 = h + sum1(e) + choice(e,f,g) + K_ARR[a] + chunk[a];
+      temp2 = sum0(a) + majority(a,b,c);
+      h = g;
+      g = f;
+      f = e;
+      e = d + temp1;
+      d = c;
+      c = b;
+      b = a;
+      a = temp1 + temp2;
+    }
+    hashes[0] += a;
+    hashes[1] += b;
+    hashes[2] += c;
+    hashes[3] += d;
+    hashes[4] += e;
+    hashes[5] += f;
+    hashes[6] += g;
+    hashes[7] += h;
   }
   int output_file = open(output_filename, O_CREAT | O_WRONLY, 0644);
-  int er = write(output_file, array, 64);  // err(__LINE__);
+  int er = write(output_file, hashes, 256);  // err(__LINE__);
 }
 
 void sha_decrypt(char *input_filename, char *output_filename) {}
