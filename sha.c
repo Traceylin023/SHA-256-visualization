@@ -11,6 +11,11 @@ int err(int line) {
   exit(1);
 }
 
+void uint32_to_hex(uint32_t num, char *hex_str) {
+    // Format the uint32_t number into a hexadecimal string
+    sprintf(hex_str, "%08X", num);
+}
+
 uint32_t rotate(uint32_t input, int shift) {
   return input >> shift | input << (32 - shift);
 }
@@ -92,7 +97,6 @@ void sha_encrypt(char *input_filename, char *output_filename) {
   fseek(file, 0, SEEK_END);
   uint64_t fileLength = ftell(file);
   int num_chunks = (int)(trunc(fileLength / 64) + 1);
-  printf("%d", num_chunks);
   fseek(file, 0, SEEK_SET);
 
   printf("size: %ld\n", fileLength);
@@ -157,6 +161,14 @@ void sha_encrypt(char *input_filename, char *output_filename) {
       f = HASH_ARR[5];
       g = HASH_ARR[6];
       h = HASH_ARR[7];
+      hashes[0] = HASH_ARR[0];
+      hashes[1] = HASH_ARR[1];
+      hashes[2] = HASH_ARR[2];
+      hashes[3] = HASH_ARR[3];
+      hashes[4] = HASH_ARR[4];
+      hashes[5] = HASH_ARR[5];
+      hashes[6] = HASH_ARR[6];
+      hashes[7] = HASH_ARR[7];
     } else{
       a = hashes[0];
       b = hashes[1];
@@ -167,8 +179,8 @@ void sha_encrypt(char *input_filename, char *output_filename) {
       g = hashes[6];
       h = hashes[7];
     }
-    for(int a = 0; a < 64; a++){
-      temp1 = h + sum1(e) + choice(e,f,g) + K_ARR[a] + chunk[a];
+    for(int j = 0; j < 64; j++){
+      temp1 = h + sum1(e) + choice(e,f,g) + K_ARR[j] + chunk[j];
       temp2 = sum0(a) + majority(a,b,c);
       h = g;
       g = f;
@@ -188,8 +200,12 @@ void sha_encrypt(char *input_filename, char *output_filename) {
     hashes[6] += g;
     hashes[7] += h;
   }
-  int output_file = open(output_filename, O_CREAT | O_WRONLY, 0644);
-  int er = write(output_file, hashes, 256);  // err(__LINE__);
+  char* result[8];
+  int output_file = open(output_filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+  for(int i=0;i<8;i++){
+    uint32_to_hex(hashes[i], result);
+    int er = write(output_file, result, 8);  // err(__LINE__);
+  }
 }
 
 void sha_decrypt(char *input_filename, char *output_filename) {}
