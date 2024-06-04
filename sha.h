@@ -40,7 +40,7 @@ uint32_t funct0(uint32_t n0);
 uint32_t funct1(uint32_t n0);
 uint32_t sum0(uint32_t n0);
 uint32_t sum1(uint32_t n0);
-uint64_t * sha256(char*input_filename, char*output_filename);
+uint64_t *sha256(char *input_filename, char *output_filename);
 void sha256_file(char *input_filename, char *output_filename);
 
 #endif
