@@ -82,7 +82,7 @@ uint32_t *pad(char *input, int chunkNum) {
   return ptr;
 }
 
-uint64_t *sha256(char *input_filename, char *output_filename) {
+uint64_t *sha256(char *input_filename) {
   FILE *file = fopen(input_filename, "r");
 
   fseek(file, 0, SEEK_END);
