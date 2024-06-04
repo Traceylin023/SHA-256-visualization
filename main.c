@@ -102,7 +102,12 @@ int main(int argc, char *argv[]) {
   } else {
     uint64_t m = 81985529216486895ULL;
     uint64_t k = 1383827165325090801ULL;
-    sha_encrypt("message.txt", "output.txt");
+    uint64_t *print = malloc(32);
+    print = sha_256("message.txt", "output.txt");
+    for (int i = 0; i < 4; i++) {
+      pbin(*(print+i), 64);
+    }
+    // sha_encrypt_file("message.txt", "output.txt");
     // if (strcmp(argv[1], "encrypt") == 0) {
     //   if (argc > 4 && strcmp(argv[4], "true") == 0)
     //     triple_des_encrypt_file(argv[2], argv[3], k, k + 1, k + 2);
