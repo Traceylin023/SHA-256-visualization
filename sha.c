@@ -82,7 +82,7 @@ uint32_t *pad(char *input, int chunkNum) {
   return ptr;
 }
 
-uint64_t *sha_256(char*input_filename, char*output_filename) {
+uint64_t *sha256(char*input_filename, char*output_filename) {
   FILE *file = fopen(input_filename, "r");
 
   fseek(file, 0, SEEK_END);
@@ -90,8 +90,8 @@ uint64_t *sha_256(char*input_filename, char*output_filename) {
   int num_chunks = (int)(trunc(fileLength / 64) + 1);
   fseek(file, 0, SEEK_SET);
 
-  printf("size: %ld\n", fileLength);
-  printf("num_chunks: %d\n", num_chunks);
+//   printf("size: %ld\n", fileLength);
+//   printf("num_chunks: %d\n", num_chunks);
 
   uint32_t * hashes = malloc(32);
   char *array = malloc(fileLength * sizeof(char));
@@ -113,24 +113,22 @@ uint64_t *sha_256(char*input_filename, char*output_filename) {
   uint32_t t1 = 0;
   uint32_t t2 = 0;
 
-  // TODO: Pad the array
   uint32_t *paddedData;
   paddedData = pad(array, num_chunks);
   /* HASH COMPUTATION */
 
-  for (int i = 0; i < 32; i++) {
-    if (i == 16) {
-      printf("\n");
-      printf("\n");
-    }
-    pbin(*(paddedData + i), 32);
-  }
+//   for (int i = 0; i < 32; i++) {
+//     if (i == 16) {
+//       printf("\n");
+//       printf("\n");
+//     }
+//     pbin(*(paddedData + i), 32);
+//   }
 
   uint32_t * chunk = malloc(256);
-  printf("\n");
+//   printf("\n");
   for (int i = 0; i < num_chunks; i++) {
-    //     fread(array, 256, 1, file);
-    //     pbin(array, 256);
+
     int curr = i*16;
     for (int j = 0; j < 16; j++) {  // pull 16 lines of 4 bytes
         chunk[j] = paddedData[curr + j];
@@ -138,11 +136,7 @@ uint64_t *sha_256(char*input_filename, char*output_filename) {
     for (int k = 0; k < 48; k++) {  // calculate the rest of the array
         chunk[k + 16] =(chunk[k] + funct0(chunk[k + 1]) + chunk[k + 9] + funct1(chunk[k + 14]));    
     }
-    // printf("calculated array:\n");
-    // for(int j = 0; j < 64; j++){
-    //   printf("[%d]: ",j);
-    //   pbin(*(chunk+j), 32);
-    // }
+
     if(i == 0){
       a = HASH_ARR[0];
       b = HASH_ARR[1];
@@ -191,14 +185,17 @@ uint64_t *sha_256(char*input_filename, char*output_filename) {
     hashes[6] += g;
     hashes[7] += h;
   }
-  uint64_t * result = malloc(32);
+  
+  uint64_t * result = malloc(4 * sizeof(uint64_t));
+
   for (int i = 0; i < 4; i++) {
-      result[i] = (uint64_t) hashes[i] << 32 | hashes[i+1];
+      result[i] = (uint64_t)hashes[i * 2] << 32 | hashes[i * 2 + 1];
   }
+
   return result;
 }
 
-void sha_encrypt_file(char *input_filename, char *output_filename) {
+void sha256_file(char *input_filename, char *output_filename) {
   /* READ FILE INTO ARRAY */
 
   // Get num_chunks = (length of the file / 512) + 1
@@ -253,8 +250,7 @@ void sha_encrypt_file(char *input_filename, char *output_filename) {
   uint32_t * chunk = malloc(256);
   printf("\n");
   for (int i = 0; i < num_chunks; i++) {
-    //     fread(array, 256, 1, file);
-    //     pbin(array, 256);
+
     int curr = i*16;
     for (int j = 0; j < 16; j++) {  // pull 16 lines of 4 bytes
         chunk[j] = paddedData[curr + j];
@@ -262,11 +258,7 @@ void sha_encrypt_file(char *input_filename, char *output_filename) {
     for (int k = 0; k < 48; k++) {  // calculate the rest of the array
         chunk[k + 16] =(chunk[k] + funct0(chunk[k + 1]) + chunk[k + 9] + funct1(chunk[k + 14]));    
     }
-    // printf("calculated array:\n");
-    // for(int j = 0; j < 64; j++){
-    //   printf("[%d]: ",j);
-    //   pbin(*(chunk+j), 32);
-    // }
+
     if(i == 0){
       a = HASH_ARR[0];
       b = HASH_ARR[1];
