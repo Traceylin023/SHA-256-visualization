@@ -2,6 +2,18 @@
 
 ## Introduction
 
+## SHA-256
+
+### Overview
+
+SHA-256 is a SHA (Secure Hash Algorithm) that takes a plaintext message and outputs it into a 256-bit hash that cannot be decrypted inversely. The process can be generalized into preprocessing and hash computation. The plaintext is first padded so that it can then parsed into 512-bit chunks evenly. 8 hash values are then computed by applying a series of functions to the 512-bit chunks and updating the hash values accordingly. The final hash is a concatenation of all 8 hash values.
+
+#### Constants
+
+The 8 initial hash values are as follows:
+
+```c
+static uint32_t HASH_ARR[8] = {6a09e667, bb67ae85, 3c6ef372, a54ff53a, 510e527f, 9b05688c, 1f83d9ab, 5be0cd19}
 ## DES
 
 ### Overview
