@@ -133,6 +133,10 @@
  
  - Created a new sha_256 function that returns the encrypted output as an array of 4 64-bit integers
 
+ ### 2024-06-05
+
+ - Worked on PRESENTATION.md
+
 
 
 
