@@ -14,6 +14,8 @@ The 8 initial hash values are as follows:
 
 ```c
 static uint32_t HASH_ARR[8] = {6a09e667, bb67ae85, 3c6ef372, a54ff53a, 510e527f, 9b05688c, 1f83d9ab, 5be0cd19}
+```
+
 ## DES
 
 ### Overview
