@@ -98,19 +98,40 @@
  - Added hash constants to the repository.
 
 ### 2024-05-24
+
  - Continued research
  - Changed padding function to use an array of 32-bit integers
  - Finished appending plaintext into 32-bit ints
+
 ### 2024-05-25
+
  - Fixed pointers and appended plaintext into 32-bit ints for n chunks instead of just one
  - Padding function appends the bit of 1
+
 ### 2024-05-28
+
  - Fixed padding for appending the plaintext
  - Added 0 padding for 448mod512 bits
  - Added plaintext length at the end of message as a 64-bit integer
+
 ### 2024-05-29
+
  - Began rotation encryption
  - Put constant arrays in sha.h rather than sha.c, turned hashes into binary and left the rest as hexes
+
+ ### 2024-05-30
+
+ - Implemented padding into the main encryption function
+ - Finished the second step of encryption (funct0 & funct1)
+
+ ### 2024-05-31
+
+ - Fixed funct1
+ - Implemented padding chunks into separate 512 bit sections
+
+ ### 2024-06-03
+ 
+ - Created a new sha_256 function that returns the encrypted output as an array of 4 64-bit integers
 
 
 
