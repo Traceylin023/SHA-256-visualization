@@ -13,7 +13,8 @@ SHA-256 is a SHA (Secure Hash Algorithm) that takes a plaintext message and outp
 The 8 initial hash values are as follows:
 
 ```c
-static uint32_t HASH_ARR[8] = {6a09e667, bb67ae85, 3c6ef372, a54ff53a, 510e527f, 9b05688c, 1f83d9ab, 5be0cd19}
+static int HASH_ARR[8] = {0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
+                               0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19};
 ```
 
 ## DES
