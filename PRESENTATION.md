@@ -8,7 +8,7 @@
 
 SHA-256 is a SHA (Secure Hash Algorithm) that takes a plaintext message and outputs it into a 256-bit hash that cannot be decrypted inversely. The process can be generalized into preprocessing and hash computation. The plaintext is first padded so that it can then parsed into 512-bit chunks evenly. 8 hash values are then computed by applying a series of functions to the 512-bit chunks and updating the hash values accordingly. The final hash is a concatenation of all 8 hash values.
 
-#### Constants
+### Constants
 
 The 8 initial hash values are as follows:
 
@@ -33,6 +33,15 @@ static int K_ARR[64] = {
     0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
 ```
+### Preprocessing
+
+#### Padding
+
+The input is padded so that the length of the message is the smallest possible multiple of 512 bits. A singular bit of '1' is appended to the end of the message, followed by 448mod512 - 1 - i bits of '0', where i is the bit length of the original input. A 64-bit binary representation of i is then appended to the end of the message.
+
+#### Parsing
+The message is parsed into N 512-bit chunks, denoted as M<sup>(1)</sup>, M<sup>(2)</sup>, ... M<sup>(N)</sup>. The message chunks are then split into arrays of 16 32-bit words, denoted as M<sub>0</sub><sup>(i)</sup>, M<sub>1</sub><sup>(i)</sup>, ... M<sub>15</sub><sup>(i)</sup>.
+
 
 ## DES
 
