@@ -36,6 +36,10 @@ static int K_ARR[64] = {
 
 ### Functions
 
+#### σ<sub>0</sub>
+
+#### σ<sub>1</sub>
+
 ### Preprocessing
 
 #### Padding
@@ -51,7 +55,7 @@ The message is parsed into N 512-bit chunks, denoted as M<sup>(1)</sup>, M<sup>(
 #### Message Schedule Preparation
 
 Each chunk is represented as the first 16 32-bit words in an array of 64 32-bit words. The next 48 words are computed as follows:
-*W<sub>N</sub>* = [σ<sub>1</sub>](#functions)(*W<sub>N-2</sub>*) + *W<sub>N-7</sub>* + [σ<sub>0</sub>](#functions)(*W<sub>N-15</sub>*) + *W<sub>N-16</sub>*, where 17 ≤ N ≤ 63.
+*W<sub>N</sub>* = [σ<sub>1</sub>](#σ<sub>1</sub>)(*W<sub>N-2</sub>*) + *W<sub>N-7</sub>* + [σ<sub>0</sub>](#σ<sub>0</sub>)(*W<sub>N-15</sub>*) + *W<sub>N-16</sub>*, where 17 ≤ N ≤ 63.
 
 #### Hash Value Permutations
 
