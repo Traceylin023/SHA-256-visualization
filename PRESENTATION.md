@@ -33,6 +33,9 @@ static int K_ARR[64] = {
     0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
 ```
+
+### Functions
+
 ### Preprocessing
 
 #### Padding
@@ -40,7 +43,17 @@ static int K_ARR[64] = {
 The input is padded so that the length of the message is the smallest possible multiple of 512 bits. A singular bit of '1' is appended to the end of the message, followed by 448mod512 - 1 - i bits of '0', where i is the bit length of the original input. A 64-bit binary representation of i is then appended to the end of the message.
 
 #### Parsing
+
 The message is parsed into N 512-bit chunks, denoted as M<sup>(1)</sup>, M<sup>(2)</sup>, ... M<sup>(N)</sup>. The message chunks are then split into arrays of 16 32-bit words, denoted as M<sub>0</sub><sup>(i)</sup>, M<sub>1</sub><sup>(i)</sup>, ... M<sub>15</sub><sup>(i)</sup>.
+
+### Hash Computation
+
+#### Message Schedule Preparation
+
+Each chunk is represented as the first 16 32-bit words in an array of 64 32-bit words. The next 48 words are computed as follows:
+W<sub>(N)</sub> = σ<sub>1</sub>(W<sub>(N-2)</sub>) + W<sub>(N-7)</sub> + σ<sub>0</sub>(W<sub>(N-15)</sub>) + W<sub>N-16</sub>
+
+#### Hash Value Permutations
 
 
 ## DES
