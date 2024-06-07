@@ -51,7 +51,7 @@ The message is parsed into N 512-bit chunks, denoted as M<sup>(1)</sup>, M<sup>(
 #### Message Schedule Preparation
 
 Each chunk is represented as the first 16 32-bit words in an array of 64 32-bit words. The next 48 words are computed as follows:
-W<sub>(N)</sub> = σ<sub>1</sub>(W<sub>(N-2)</sub>) + W<sub>(N-7)</sub> + σ<sub>0</sub>(W<sub>(N-15)</sub>) + W<sub>N-16</sub>
+W<sub>*N*</sub> = σ<sub>1</sub>(W<sub>*N-2*</sub>) + W<sub>*N-7*</sub> + σ<sub>0</sub>(W<sub>*N-15*</sub>) + W<sub>N-16</sub>
 
 #### Hash Value Permutations
 
