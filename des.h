@@ -1,11 +1,13 @@
 #ifndef DES_H
 #define DES_H
 
+#include <dirent.h>
 #include <errno.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
 #include <unistd.h>
 
 /* All static global arrays are taken from FIPS PUB 46-3,
