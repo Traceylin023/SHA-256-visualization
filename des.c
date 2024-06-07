@@ -166,6 +166,14 @@ uint64_t des_encrypt(uint64_t data, uint64_t key_64) {
   return final_permutation(r << 32 | l);
 }
 
+void * des_encrypt_thread(void * data) {
+  struct worker_input *wd = (struct worker_input *) data;
+
+  wd->cipher = des_encrypt(wd->block, wd->cipher);
+  printf("THEAD: %d ", wd->block_id);
+  pbin(wd->cipher, 64);
+}
+
 uint64_t des_decrypt(uint64_t data, uint64_t key_64) {
   uint64_t *split = split_l_r(initial_permutation(data));
   uint64_t *key_schedule = generate_key_schedule(key_64);
@@ -199,9 +207,26 @@ int des_encrypt_file(char *input_filename, char *output_filename,
   int remain = (ftell(input_file) % 8);
   fseek(input_file, 0L, SEEK_SET);
 
+  int thread_id;
+  pthread_t thread;
+  int block_id = 0;
+  struct worker_input input;
+
   while (fread(&buffer, sizeof(uint64_t), 1, input_file) == 1) {
+    input.block_id = block_id++;
+    input.block = buffer;
+    input.key = key_64;
+    input.cipher = 0;
+
+    thread_id = pthread_create(&thread, NULL, des_encrypt_thread, (void *) &input);
+    pthread_join(thread, NULL);
+    // pbin(input.cipher, 64);
+    
+    // fwrite(&input.cipher, sizeof(uint64_t), 1, output_file);
     encrypted = des_encrypt(buffer, key_64);
-    fwrite(&encrypted, sizeof(uint64_t), 1, output_file);
+    // fwrite(&encrypted, sizeof(uint64_t), 1, output_file);
+    pbin(encrypted, 64);
+    printf("\n");
   }
 
   uint64_t mask;

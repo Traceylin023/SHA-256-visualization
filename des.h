@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <pthread.h>
 
 /* All static global arrays are taken from FIPS PUB 46-3,
    representing various bit transformations in the DES algorithm */
@@ -87,6 +88,13 @@ static char PC_2_ARR[48] = {14, 17, 11, 24, 1,  5,  3,  28, 15, 6,  21, 10,
                             44, 49, 39, 56, 34, 53, 46, 42, 50, 36, 29, 32};
 
 static char SHIFTS[16] = {1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1};
+
+struct worker_input {
+  int block_id;
+  uint64_t block;
+  uint64_t key;
+  uint64_t *cipher;
+};
 
 void pbin(uint64_t input, int size);
 
