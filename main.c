@@ -100,20 +100,23 @@ int main(int argc, char *argv[]) {
   if (argc == 2 && strcmp(argv[1], "test") == 0) {
     run_tests();
   } else {
-    uint64_t m = 81985529216486895ULL;
-    uint64_t k = 1383827165325090801ULL;
+
+    if (argc < 5) {
+        printf("Usage: make [encrypt/decrypt] [input_file] [output_file] [password file] [triple_des]\n");
+        return 1;
+    }
 
     uint64_t *hash = malloc(32);
-    hash = sha256("password.txt");
+    hash = sha256(argv[4]);
 
     if (argc > 3) {
         if (strcmp(argv[1], "encrypt") == 0) {
-        if (argc > 4 && strcmp(argv[4], "true") == 0)
+        if (argc > 4 && strcmp(argv[5], "true") == 0)
             triple_des_encrypt_file(argv[2], argv[3], hash[0], hash[1], hash[2]);
         else
             des_encrypt_file(argv[2], argv[3], hash[0]);
         } else if (strcmp(argv[1], "decrypt") == 0) {
-        if (argc > 4 && strcmp(argv[4], "true") == 0)
+        if (argc > 4 && strcmp(argv[5], "true") == 0)
             triple_des_decrypt_file(argv[2], argv[3], hash[0], hash[1], hash[2]);
         else
             des_decrypt_file(argv[2], argv[3], hash[0]);

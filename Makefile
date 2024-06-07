@@ -24,9 +24,9 @@ sha.o: sha.c main.h sha.h
 run: main.out
 	@./main.out
 encrypt: main.out
-	@./main.out encrypt ${input} ${output} ${triple}
+	@./main.out encrypt ${input} ${output} ${key} ${triple}
 decrypt: main.out
-	@./main.out decrypt ${input} ${output} ${triple}
+	@./main.out decrypt ${input} ${output} ${key} ${triple}
 test: main.out
 	@./main.out test
 clean:
