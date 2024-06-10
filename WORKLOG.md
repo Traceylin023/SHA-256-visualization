@@ -116,7 +116,7 @@
 - finished the presentation.md for sha256 I think
 
 ## CLEMENS LI
-- 
+
 ### 2024-05-23
 
  - Continued research on the SHA-256 hash
@@ -164,7 +164,17 @@
 
  - Worked on PRESENTATION.md
 
+ ### 2024-06-06
 
+ - Updated markdown on PRESENTATION.md
+
+ ### 2024-06-07
+
+ - Added hyperlinks and headings on PRESENTATION.md
+
+ ### 2024-06-10
+
+ - RECORDED HOORAYYYY DONE
 
 
 ## TRACEY LIN
