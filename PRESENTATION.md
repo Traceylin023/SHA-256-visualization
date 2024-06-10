@@ -36,9 +36,21 @@ static int K_ARR[64] = {
 
 ### Functions
 
-#### σ<sub>0</sub>
+#### ROTR<sup>n</sup>(x) - circular right shift of n distance
 
-#### σ<sub>1</sub>
+#### SHR<sup>n</sup>(x) -  right shift of n distance
+
+#### Ch(x,y,z) = (x ^ y) + (-x ^ z)
+
+#### Maj(x,y,z) = (x ^ y) + (x ^ z) + (y ^ z)
+
+#### σ<sub>0</sub>(x) = ROTR<sup>7</sup>(x) + ROTR<sup>18</sup>(x) + SHR<sup>3</sup>(x)
+
+#### σ<sub>1</sub>(x) = ROTR<sup>17</sup>(x) + ROTR<sup>19</sup>(x) + SHR<sup>10</sup>(x)
+
+#### Σ<sub>0</sub>(x) = ROTR<sup>2</sup>(x) + ROTR<sup>13</sup>(x) + ROTR<sup>22</sup>(x)
+
+#### Σ<sub>1</sub>(x) = ROTR<sup>6</sup>(x) + ROTR<sup>11</sup>(x) + ROTR<sup>25</sup>(x)
 
 ### Preprocessing
 
