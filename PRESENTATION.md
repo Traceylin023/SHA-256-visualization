@@ -87,7 +87,7 @@ After the message schedule is prepared, we then assign the stored hash values to
   b = a  
   a = T<sub>1</sub> + T<sub>2</sub>  
 
-K is an array of 64 constant 32-bit words which are the thirty-two bits of the fractional parts of the cube roots of the first sixty-four prime numbers. After all the calculations you add the resulting variables to the last recorded hash values where H[0] += a, H[1] += b, etc. Once you process all the padded data, a 256-bit long string is returned made up of 8, 32-bit values that are the final values in H[].  
+K is an array of 64 constant 32-bit words which are the thirty-two bits of the fractional parts of the cube roots of the first sixty-four prime numbers. After all the calculations you add the resulting variables to the last recorded hash values where H[0] += a, H[1] += b, etc. Once you process all the padded data, a 256-bit long output is returned made up of 8, 32-bit values that are the final values in H[].  
 
 ## DES
 
