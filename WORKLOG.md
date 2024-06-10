@@ -86,10 +86,37 @@
 - added the first initial 8 hash values and 64 constants
 - implemented the right rotate logic
 - implemented the first 2 functions used in hash computation
+  
+### 2024-05-28  
+- more sha logic  
 
+### 2024-05-29  
+- hash calculations + read being funny(broken)
+
+### 2024-05-30  
+- tried implementing fread but couldn't make it work
+
+### 2024-05-31    
+- finished message schedule code  
+
+### 2024-06-01   
+- finished the logic for sha-256 but is broken  
+
+### 2024-06-03  
+- started working on the presentation in docs
+
+### 2024-06-05  
+- started making a flow chart to explain
+
+### 2024-06-07  
+- continued with the flowchart
+
+### 2024-06-09  
+- scrapped the flowchart
+- finished the presentation.md for sha256 I think
 
 ## CLEMENS LI
-
+- 
 ### 2024-05-23
 
  - Continued research on the SHA-256 hash
