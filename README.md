@@ -46,25 +46,25 @@ make sha input=<input filename>
 To encrypt a file using DES, run:
 
 ```bash
-make run encrypt input=<input filename> output=<output filename> key=<key filename> triple=false
+make encrypt input=<input filename> output=<output filename> key=<key filename> triple=false
 ```
 
 To encrypt a file using 3DES, run:
 
 ```bash
-make run encrypt input=<input filename> output=<output filename> key=<key filename> triple=true
+make encrypt input=<input filename> output=<output filename> key=<key filename> triple=true
 ```
 
 To decrypt a file using DES, run:
 
 ```bash
-make run decrypt input=<input filename> output=<output filename> key=<key filename> triple=false
+make decrypt input=<input filename> output=<output filename> key=<key filename> triple=false
 ```
 
 To decrypt a file using 3DES, run:
 
 ```bash
-make run decrypt input=<input filename> output=<output filename> key=<key filename> triple=true
+make decrypt input=<input filename> output=<output filename> key=<key filename> triple=true
 ```
 
 To clean the compiled files, run:
