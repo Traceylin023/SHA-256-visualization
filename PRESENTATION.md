@@ -36,9 +36,9 @@ static int K_ARR[64] = {
 
 ### Functions
 
-#### ROTR<sup>n</sup>(x) - circular right shift of n distance
+#### ROTR<sup>n</sup>(x) - Circular right shift of n distance
 
-#### SHR<sup>n</sup>(x) -  right shift of n distance
+#### SHR<sup>n</sup>(x) -  Right shift of n distance
 
 #### Ch(x,y,z) = (x ^ y) + (-x ^ z)
 
@@ -69,9 +69,25 @@ The message is parsed into N 512-bit chunks, denoted as M<sup>(1)</sup>, M<sup>(
 Each chunk is represented as the first 16 32-bit words in an array of 64 32-bit words. The next 48 words are computed as follows:
 *W<sub>N</sub>* = [σ<sub>1</sub>](#functions)(*W<sub>N-2</sub>*) + *W<sub>N-7</sub>* + [σ<sub>0</sub>](#functions)(*W<sub>N-15</sub>*) + *W<sub>N-16</sub>*, where 17 ≤ N ≤ 63. This results in a message schedule of 64 32-bit words.
 
-#### Hash Value Permutations
+#### Intermediate Hash Value Calculations
 
+After the message schedule is prepared, we then assign the stored hash values to the variables a through h where H[0] maps to a, H[1] maps to b, etc. If it is the first chunk, the hashes are calculated by taking the first thirty-two bits of the fractional parts of the square roots of the first eight prime numbers, otherwise, the variables are initialized as the last stored hash values calculated from a previous chunk. For 0 ≤ t ≤ 63:
 
+  Temporary variables for computation:  
+  T<sub>1</sub> = h + Σ<sub>1</sub>(e) + Ch(e,f,g) + w<sub>t</sub> + k<sub>t</sub>  
+  T<sub>2</sub> = Σ<sub>0</sub>(a) + Maj(a,b,c)  
+
+  Variable updates:  
+  h = g  
+  g = f  
+  f = e  
+  e = d + T<sub>1</sub>  
+  d = c  
+  c = b  
+  b = a  
+  a = T<sub>1</sub> + T<sub>2</sub>  
+
+K is an array of 64 constant 32-bit words which are the thirty-two bits of the fractional parts of the cube roots of the first sixty-four prime numbers. After all the calculations you add the resulting variables to the last recorded hash values where H[0] += a, H[1] += b, etc. Once you process all the padded data, a 256-bit long string is returned made up of 8, 32-bit values that are the final values in H[].  
 
 ## DES
 
