@@ -27,6 +27,8 @@ encrypt: main.out
 	@./main.out encrypt ${input} ${output} ${key} ${triple}
 decrypt: main.out
 	@./main.out decrypt ${input} ${output} ${key} ${triple}
+sha: main.out
+	@./main.out sha ${input}
 test: main.out
 	@./main.out test
 clean:

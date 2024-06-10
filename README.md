@@ -37,6 +37,12 @@ make compile
 
 This program is able to encrypt and decrypt files using the DES algorithm, along with the 3DES variant. A passphrase file must be provided to encrypt or decrypt a file. 
 
+To output a hash of a file to a file named `sha_output.txt`, run:
+
+```bash
+make sha input=<input filename>
+```
+
 To encrypt a file using DES, run:
 
 ```bash

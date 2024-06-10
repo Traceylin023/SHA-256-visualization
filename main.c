@@ -99,7 +99,10 @@ int main(int argc, char *argv[]) {
   // DO NOT COMMENT OUT THIS BLOCK
   if (argc == 2 && strcmp(argv[1], "test") == 0) {
     run_tests();
-  } else {
+  } else if (argc == 3 && strcmp(argv[1], "sha") == 0) {
+    sha256_file(argv[2], "sha_output.txt");
+  }
+  else {
 
     if (argc < 5) {
         printf("Usage: make [encrypt/decrypt] [input_file] [output_file] [password file] [triple_des]\n");

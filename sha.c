@@ -211,8 +211,8 @@ void sha256_file(char *input_filename, char *output_filename) {
   int num_chunks = (int)(trunc(fileLength / 64) + 1);
   fseek(file, 0, SEEK_SET);
 
-  printf("size: %ld\n", fileLength);
-  printf("num_chunks: %d\n", num_chunks);
+//   printf("size: %ld\n", fileLength);
+//   printf("num_chunks: %d\n", num_chunks);
 
   uint32_t *hashes = malloc(32);
   char *array = malloc(fileLength * sizeof(char));
@@ -239,13 +239,13 @@ void sha256_file(char *input_filename, char *output_filename) {
   paddedData = pad(array, num_chunks);
   /* HASH COMPUTATION */
 
-  for (int i = 0; i < 32; i++) {
-    if (i == 16) {
-      printf("\n");
-      printf("\n");
-    }
-    pbin(*(paddedData + i), 32);
-  }
+//   for (int i = 0; i < 32; i++) {
+//     if (i == 16) {
+//       printf("\n");
+//       printf("\n");
+//     }
+//     pbin(*(paddedData + i), 32);
+//   }
 
   uint32_t *chunk = malloc(256);
   printf("\n");
