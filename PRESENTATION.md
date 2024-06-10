@@ -260,3 +260,11 @@ Decryption is the same as encryption, except that the subkeys are used in revers
 1. Apply the initial permutation (IP) to the input block.
 2. Perform 16 rounds of encryption using the subkeys in reverse order, from round 16 to round 1.
 3. Apply the final permutation (IPI) to the output of the last round.
+
+## Resources
+
+[SHA-256 Visualizer]https://sha256algorithm.com/
+[FIPS 180-4 (SHA-256)]https://csrc.nist.gov/pubs/fips/180-4/upd1/final
+[FIPS 46-3 (Triple DES)]https://csrc.nist.gov/files/pubs/fips/46-3/final/docs/fips46-3.pdf
+
+
