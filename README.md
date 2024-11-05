@@ -11,7 +11,7 @@ Group Members:
 - Ivan Chen
 - Edmund Chin
 - Clemens Li
-- Tracey Lin (the leech)
+- Tracey Lin 
 
 ## Overview
 
